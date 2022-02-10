@@ -19,7 +19,7 @@
             this.db = db;
         }
 
-        public IActionResult Chat(string id)
+        public IActionResult Private(string id)
         {
             var usersModel = this.db.Users
                                .Select(x => new UserModel()
@@ -30,19 +30,19 @@
                                .ToList();
 
             this.ViewBag.Username = usersModel.FirstOrDefault(x => x.Id == id)?.UserName;
+            return this.View(usersModel);
+        }
 
-            var addrange = new List<UserModel>();
-            for (int i = 0; i < 10; i++)
-            {
-                addrange.Add(
-                    new UserModel
-                    {
-                        Id = i.ToString(),
-                        UserName = "Test" + i.ToString(),
-                    });
-            }
+        public IActionResult UsersList()
+        {
+            var usersModel = this.db.Users
+                               .Select(x => new UserModel()
+                               {
+                                   Id = x.Id,
+                                   UserName = x.Email,
+                               })
+                               .ToList();
 
-            usersModel.AddRange(addrange);
             return this.View(usersModel);
         }
     }
