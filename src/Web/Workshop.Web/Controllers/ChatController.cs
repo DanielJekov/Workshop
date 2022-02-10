@@ -25,7 +25,7 @@
                                .Select(x => new UserModel()
                                {
                                    Id = x.Id,
-                                   UserName = x.Email,
+                                   UserName = x.UserName,
                                })
                                .ToList();
 
