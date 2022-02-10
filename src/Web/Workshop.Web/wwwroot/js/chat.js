@@ -4,7 +4,7 @@
         .build();
 
 function LoadUser(id) {
-    window.location = '/Home/Chat/' + id;
+    window.location = '/Chat/Chat/' + id;
 };
 
 connection.start().catch(function (err) {

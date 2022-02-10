@@ -107,6 +107,7 @@
                 endpoints =>
                     {
                         endpoints.MapHub<ChatHub>("/chat");
+                        endpoints.MapHub<NotificationHub>("/notify");
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
