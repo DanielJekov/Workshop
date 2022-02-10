@@ -1,0 +1,68 @@
+﻿@model ICollection<Workshop.Web.ViewModels.Users.UserModel>
+@{ ViewData["Title"] = "Chat"; }
+
+@section Styles {
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/chat.css" rel="stylesheet" asp-append-version="true" />
+}
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card-custom chat-app" style="background-color: #3f474e">
+                <div id="plist" class="people-list">
+                    <div class="input-group text-green font-weight-bold">
+                        Users
+                    </div>
+                    <ul class="list-unstyled chat-list mt-2 mb-0" style="height: calc(100vh - 245px); overflow: auto;">
+                        @foreach (var user in Model)
+                        {
+                            <li class="clearfix" onclick="LoadUser('@user.Id')">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                <div class="about">
+                                    <div class="text-green name">@user.UserName</div>
+                                    <div class="status text-darkgold"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="chat">
+                    <div class="chat-header clearfix">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                                </a>
+                                <div class="chat-about">
+                                    <h6 class="m-b-0 text-green" id="Username">@ViewBag.Username</h6>
+                                    <small class="text-darkgold">Last seen: 2 hours ago</small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 hidden-sm text-right">
+                                <a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-history">
+                        <ul id="messagesList" class="m-b-0">
+                        </ul>
+                    </div>
+                    <div class="chat-message clearfix">
+                        <div class="input-group mb-0">
+                            <div class="input-group-prepend">
+                                <button id="sendButton" class="input-group-text border-gold" style="background-color: rgba(255,255,255,0.2)"><i class="fa fa-send" style="color: gold"></i></button>
+                            </div>
+                            <input id="messageInput" type="text" class="form-control border-gold" style="background-color: rgba(255,255,255,0.2); color: gold;" placeholder="Enter text here... ">
+                            <input type="hidden" id="ToUserWithId" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/chat.js" asp-append-version="true"></script>
+}

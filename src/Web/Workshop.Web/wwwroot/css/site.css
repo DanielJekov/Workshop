@@ -72,3 +72,44 @@ body {
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
 }
+
+.border-custom-gold {
+    border-top-color: goldenrod !important;
+    border-top-width: 3px !important;
+    border-bottom-color: goldenrod !important;
+    border-bottom-width: 3px !important;
+}
+
+.navbar-brand {
+    color: coral !important;
+}
+
+.text-chocolate {
+    color: chocolate !important;
+}
+
+.text-blue {
+    color: cadetblue !important;
+}
+
+.text-green {
+    color: darkseagreen !important;
+}
+
+.border-gold {
+    border-top-color: goldenrod;
+    border-bottom-color: goldenrod;
+    border-right-color: goldenrod;
+    border-left-color: goldenrod;
+}
+
+.border-blue {
+    border-top-color: cadetblue;
+    border-top-width: 2px;
+    border-bottom-color: cadetblue;
+    border-bottom-width: 2px;
+    border-right-color: cadetblue;
+    border-right-width: 2px;
+    border-left-color: cadetblue;
+    border-left-width: 2px;
+}

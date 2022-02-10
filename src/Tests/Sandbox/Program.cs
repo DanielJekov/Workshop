@@ -20,32 +20,97 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using System.Text;
+    using System.Security.Cryptography;
 
     public static class Program
     {
-        public static int Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine($"{typeof(Program).Namespace} ({string.Join(" ", args)}) starts working...");
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
-            IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider(true);
+            var guid1 = Guid.NewGuid().ToString().ToCharArray();
+            var guid2 = Guid.NewGuid().ToString().ToCharArray();
+            Console.WriteLine(new string('-', 60));
 
-            // Seed data on application startup
-            using (var serviceScope = serviceProvider.CreateScope())
+            //First Try 7 miliseconds!
+            var stopWatch = new Stopwatch();
+            //stopWatch.Start();
+            //Console.WriteLine(GetHashFromTwoStringsNoMatterWhosFirst(guid1, guid2));
+            //stopWatch.Stop();
+            //Console.WriteLine(stopWatch.ElapsedMilliseconds);
+            //stopWatch.Reset();
+
+            //Second Try
+            stopWatch.Start();
+            Console.WriteLine(GetHashFromTwoStringsNoMatterWhosFirst(guid1, guid2));
+            stopWatch.Stop();
+            Console.WriteLine(stopWatch.ElapsedMilliseconds);
+
+            //Console.WriteLine($"{typeof(Program).Namespace} ({string.Join(" ", args)}) starts working...");
+            //var serviceCollection = new ServiceCollection();
+            //ConfigureServices(serviceCollection);
+            //IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider(true);
+
+            //// Seed data on application startup
+            //using (var serviceScope = serviceProvider.CreateScope())
+            //{
+            //    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            //    dbContext.Database.Migrate();
+            //    new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            //}
+
+            //using (var serviceScope = serviceProvider.CreateScope())
+            //{
+            //    serviceProvider = serviceScope.ServiceProvider;
+
+            //    return Parser.Default.ParseArguments<SandboxOptions>(args).MapResult(
+            //        opts => SandboxCode(opts, serviceProvider).GetAwaiter().GetResult(),
+            //        _ => 255);
+            //}
+        }
+
+        private static string GetHashFromTwoStringsNoMatterWhosFirst(char[] first, char[] second)
+        {
+            return GetHashString(ConcatTwoStrings(first, second));
+        }
+
+        private static string ConcatTwoStrings(char[] first, char[] second)
+        {
+            string result = string.Empty;
+            for (int i = 0; i < first.Length; i++)
             {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                dbContext.Database.Migrate();
-                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                if ((int)first[i] == (int)second[i])
+                {
+                    continue;
+                }
+
+                if ((int)first[i] < (int)second[i])
+                {
+                    result = new string(first) + new string(second);
+                }
+                else
+                {
+                    result = new string(second) + new string(first);
+                }
+
+                break;
             }
 
-            using (var serviceScope = serviceProvider.CreateScope())
-            {
-                serviceProvider = serviceScope.ServiceProvider;
+            return result;
+        }
 
-                return Parser.Default.ParseArguments<SandboxOptions>(args).MapResult(
-                    opts => SandboxCode(opts, serviceProvider).GetAwaiter().GetResult(),
-                    _ => 255);
-            }
+        private static byte[] GetHash(string inputString)
+        {
+            using (HashAlgorithm algorithm = SHA256.Create())
+                return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
+
+        private static string GetHashString(string inputString)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHash(inputString))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
         }
 
         private static async Task<int> SandboxCode(SandboxOptions options, IServiceProvider serviceProvider)

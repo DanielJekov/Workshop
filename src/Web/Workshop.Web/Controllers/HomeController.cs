@@ -2,9 +2,9 @@
 {
     using System.Diagnostics;
 
-    using Workshop.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
+
+    using Workshop.Web.ViewModels;
 
     public class HomeController : BaseController
     {
