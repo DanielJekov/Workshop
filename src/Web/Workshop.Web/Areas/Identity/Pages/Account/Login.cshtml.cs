@@ -44,6 +44,7 @@
         {
             [Required]
             [Display(Name = "Username")]
+            [MinLength(3)]
             public string UserName { get; set; }
 
             [Required]

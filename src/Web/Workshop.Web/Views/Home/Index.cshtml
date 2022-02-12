@@ -10,32 +10,14 @@
 </div>
 <br />
 <br />
-<h1 class="text-blue">Recenly changed</h1>
+<h1 class="text-blue">Github Repositories</h1>
 <br />
-<div>
-    <div class="card-deck">
-        <div class="card border-blue bg-dark">
-            <div class="card-body">
-                <h5 class="card-title text-chocolate">Minning Forum</h5>
-                <p class="card-text text-green">C# Exercises from SoftUni Proffesional Path</p>
-                <p class="card-text text-green"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-        <div class="card border-blue bg-dark">
-            <div class="card-body">
-                <h5 class="card-title text-chocolate">Car Battery Shop</h5>
-                <p class="card-text text-green">C# Exercises from SoftUni Proffesional Path</p>
-                <p class="card-text text-green"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div> <div class="card border-blue bg-dark">
-            <div class="card-body">
-                <h5 class="card-title text-chocolate">Test</h5>
-                <p class="card-text text-green">C# Exercises from SoftUni Proffesional Path</p>
-                <p class="card-text text-green"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
-</div>
+<div id="repo-list" class="row"></div>
 <br />
 <br />
 <br />
+
+@section Scripts {
+    <script src="https://momentjs.com/downloads/moment.js" asp-append-version="true"></script>
+    <script src="~/js/github-repo-loader.js" asp-append-version="true"></script>
+}
