@@ -12,7 +12,8 @@
             if (repo.description.length > 44) {
                 repo.description = repo.description.slice(0, 40).concat('..')
             }
-            repo.pushed_at = moment(repo.pushed_at, "YYYY-MM-DDTOHH:mm").fromNow();
+
+            repo.pushed_at = moment(new Date(repo.pushed_at), "YYYY-MM-DDTOHH:mm").fromNow();
 
             result = `<a target ="_blank" href="${repo.html_url}" class="text-decoration-none col-4 pb-4">
                                      <div class="card border-blue bg-dark">
