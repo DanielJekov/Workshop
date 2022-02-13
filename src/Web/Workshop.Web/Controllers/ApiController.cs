@@ -10,7 +10,7 @@
 
     [ApiController]
     [Route("api")]
-    public class ApiController : Controller
+    public class ApiController : ControllerBase
     {
         private readonly IConfiguration configuration;
 

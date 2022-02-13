@@ -3,7 +3,6 @@
     type: 'get',
     datatype: 'json',
     success: function (response) {
-        console.log(response);
         response.forEach(function (repo) {
 
             if (repo.description === null) {
