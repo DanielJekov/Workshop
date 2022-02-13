@@ -2,17 +2,26 @@
     ViewData["Title"] = "Home";
 }
 <br />
-<div class="text-center bg-dark">
-    <h1 class="text-blue font-weight-bold">Hi, Im Daniel, Web developer</h1>
-    <h3 class="text-blue font-weight-bold">Welcome to my place</h3>
-    <br />
-    <hr style="background-color: gold" />
+<div class="row">
+    <div class="col-10">
+        <div class="text-center bg-dark">
+            <h1 class="text-blue font-weight-bold text-left">Hi, Im Daniel, Web developer</h1>
+            <h3 class="text-blue font-weight-bold text-left">Welcome to my place</h3>
+        </div>
+        <br />
+
+    </div>
+    <div id="weather" class="col-2">
+
+    </div>
 </div>
+<hr style="background-color: gold" />
 <br />
 <br />
 <h1 class="text-blue">Github Repositories</h1>
 <br />
 <div id="repo-list" class="row"></div>
+
 <br />
 <br />
 <br />
@@ -20,4 +29,5 @@
 @section Scripts {
     <script src="https://momentjs.com/downloads/moment.js" asp-append-version="true"></script>
     <script src="~/js/github-repo-loader.js" asp-append-version="true"></script>
+    <script src="~/js/weather-loader.js" asp-append-version="true"></script>
 }

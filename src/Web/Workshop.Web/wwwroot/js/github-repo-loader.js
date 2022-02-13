@@ -1,8 +1,9 @@
 ﻿$.ajax({
-    url: "https://api.github.com/users/danieljekov/repos",
+    url: `/api/github-repos`,
     type: 'get',
     datatype: 'json',
     success: function (response) {
+        console.log(response);
         response.forEach(function (repo) {
 
             if (repo.description === null) {
@@ -11,7 +12,7 @@
 
             if (repo.description.length > 44) {
                 repo.description = repo.description.slice(0, 40).concat('..')
-            }
+            };
 
             repo.pushed_at = moment(new Date(repo.pushed_at), "YYYY-MM-DDTOHH:mm").fromNow();
 
@@ -24,6 +25,7 @@
                                      </div>
                                      </div>
                                      </a>`;
+
             $("#repo-list").append(result);
         });
     }
