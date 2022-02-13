@@ -7,14 +7,17 @@
 
     using Workshop.Services.Data;
     using Workshop.Web.ViewModels.Chat;
+    using Workshop.Web.ViewModels.Notifications;
 
     public class ChatHub : Hub
     {
         private IHashProvider hashProvider;
+        private IHubContext<NotificationHub> hubContext;
 
-        public ChatHub(IHashProvider hashProvider)
+        public ChatHub(IHashProvider hashProvider, IHubContext<NotificationHub> hubContext)
         {
             this.hashProvider = hashProvider;
+            this.hubContext = hubContext;
         }
 
         public async Task Send(string id, string messageInput)
@@ -30,6 +33,14 @@
             };
 
             await this.Clients.Group(hashGroup).SendAsync("NewMessage", message);
+
+            var notificationMessage = new NotificationViewModel()
+            {
+                Sender = this.Context.User.Identity.Name,
+                Message = messageInput,
+                Link = $"/Chat/Private/{currUser}",
+            };
+            await this.hubContext.Clients.User(id).SendAsync("NewNotification", notificationMessage);
         }
 
         public async Task Add(string id)
