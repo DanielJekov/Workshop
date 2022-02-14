@@ -28,7 +28,7 @@ notifyConnection.on("NewNotification",
               <span aria-hidden="true" class="text-warning">&times;</span>
               </button>
               </div>
-              <a href="${message.link}">
+              <a class="text-decoration-none" href="${message.link}">
               <div class="toast-body text-warning" style="background-color: #5D6166 !important">
               ${message.message}
               </div>
