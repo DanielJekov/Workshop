@@ -102,6 +102,16 @@ body {
     border-right-color: goldenrod;
     border-left-color: goldenrod;
 }
+.border-all-borders-gold {
+    border-top-color: goldenrod;
+    border-top-width: 1px;
+    border-bottom-color: goldenrod;
+    border-bottom-width: 1px;
+    border-right-color: goldenrod;
+    border-right-width: 1px;
+    border-left-color: goldenrod;
+    border-left-width: 1px;
+}
 
 .border-blue {
     border-top-color: cadetblue;
