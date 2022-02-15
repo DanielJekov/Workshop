@@ -123,3 +123,19 @@ body {
     border-left-color: cadetblue;
     border-left-width: 2px;
 }
+
+.wordwrap {
+    white-space: pre-wrap; /* CSS3 */
+    white-space: -moz-pre-wrap; /* Firefox */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* IE */
+}
+
+.dropdown-menu, .dropdown-item:hover, .dropdown-item:focus {
+    -webkit-border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    border-radius: 15px 15px 15px 15px;
+    color: #16181b;
+    text-decoration: none;
+    background-color: rgba(255,255,255,0.2);
+}

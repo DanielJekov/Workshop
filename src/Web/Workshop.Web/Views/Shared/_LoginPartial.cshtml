@@ -3,49 +3,12 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-    <style>
-        .wordwrap {
-            white-space: pre-wrap; /* CSS3 */
-            white-space: -moz-pre-wrap; /* Firefox */
-            white-space: -o-pre-wrap; /* Opera 7 */
-            word-wrap: break-word; /* IE */
-        }
-        </style>
+
 <ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
-        <li class="nav-item">
-            <div class="dropleft">
-                <span class="mt-2 mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa-solid fa-bell" style="color: chocolate"></i>
-                </span>
-                <div class="dropdown-menu border-all-borders-gold mt-4" aria-labelledby="dropdownMenuButton" style="background-color: #54575c; width: 330px; ">
-                    <a class="dropdown-item" href="/">
-                        <div class="text-green">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" width="20" height="20">
-                            spyker156
-                            <span class="text-chocolate small">10 hours ago</span>
-                        </div>
-                        <small class="wordwrap text-warning">afhf </small>
-                    </a>
-                    <a class="dropdown-item" href="/">
-                        <div class="text-green">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" width="20" height="20">
-                            <span>spyker156</span>
-                            <span class="text-chocolate small">10 hours ago</span>
-                        </div>
-                        <small class="wordwrap text-warning">afhasdasdasdasdasdasdadasdsadasdasdaasdasdasdasdasdasdsadasf asdasdasdasddfsdfsdfsdfsdfsd</small>
-                    </a>
-                    <a class="dropdown-item" href="/">
-                        <div class="text-green">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" width="20" height="20">
-                            spyker156
-                            <span class="text-chocolate small">10 hours ago</span>
-                        </div>
-                        <small class="wordwrap text-warning">afhf </small>
-                    </a>
-                </div>
-            </div>
+        <li class="nav-item ">
+            <partial name="_NotificationsPartial" />
         </li>
         <li class="nav-item ">
             <a asp-area="" asp-controller="Chat" asp-action="UsersList" class="nav-link text-chocolate">

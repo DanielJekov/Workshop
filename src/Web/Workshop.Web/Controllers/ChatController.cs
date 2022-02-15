@@ -55,7 +55,7 @@
                                .Select(x => new ChatUserViewModel()
                                {
                                    Id = x.Id,
-                                   UserName = x.Email,
+                                   UserName = x.UserName,
                                })
                                .ToList();
             foreach (var user in usersModel)

@@ -21,7 +21,7 @@ notifyConnection.on("NewNotification",
 
         document.getElementById("notifications").innerHTML = document.getElementById("notifications").innerHTML +
             ` <div id="${toastId}" class="toast border-all-borders-gold" role="alert" aria-live="assertive" aria-atomic="true" data-delay="${miliseconds}" style="background-color: goldenrod !important;">
-              <div class="toast-header" style="background-color: #5D6166 !important">
+              <div class="toast-header" style="background-color: #3f474e !important">
               <img src="/siteLogo.jpg" class="rounded mr-2" alt="/siteLogo.jpg" width="20" height="20">
               <strong class="mr-auto text-green pl-1 pr-5">${message.sender}</strong>
               <button type="button" class="ml-2 mb-1 close " data-dismiss="toast" aria-label="Close">
@@ -29,7 +29,7 @@ notifyConnection.on("NewNotification",
               </button>
               </div>
               <a class="text-decoration-none" href="${message.link}">
-              <div class="toast-body text-warning" style="background-color: #5D6166 !important; word-wrap: break-word;">
+              <div class="toast-body text-warning" style="background-color: #3f474e !important; word-wrap: break-word;">
               ${message.message}
               </div>
               </div>
