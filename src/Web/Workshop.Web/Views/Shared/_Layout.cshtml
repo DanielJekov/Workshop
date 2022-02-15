@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" />
     @await RenderSectionAsync("Styles", required: false)
+    <style>
+        .dropdown-menu, .dropdown-item:hover, .dropdown-item:focus {
+            -webkit-border-radius: 15px 15px 15px 15px;
+            -moz-border-radius: 15px 15px 15px 15px;
+            border-radius: 15px 15px 15px 15px;
+            color: #16181b;
+            text-decoration: none;
+            background-color: rgba(255,255,255,0.2);
+        }
+    </style>
 </head>
 
 <body class="bg-dark">
@@ -64,7 +74,10 @@
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
-    <script src="~/js/notification.js" asp-append-version="true"></script>
+    @if (this.Context.User.Identity.IsAuthenticated)
+    {
+        <script src="~/js/notification.js" asp-append-version="true"></script>
+    }
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

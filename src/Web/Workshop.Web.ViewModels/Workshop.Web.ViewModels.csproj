@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\Services\Workshop.Services.Mapping\Workshop.Services.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Users\" />
+  </ItemGroup>
+
 </Project>

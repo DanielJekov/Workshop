@@ -1,4 +1,4 @@
-﻿@model ICollection<Workshop.Web.ViewModels.Users.UserModel>
+﻿@model ICollection<Workshop.Web.ViewModels.Chat.ChatUserViewModel>
 @{ ViewData["Title"] = "Chat"; }
 
 @section Styles {
@@ -21,7 +21,18 @@
                                 <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
                                 <div class="about">
                                     <div class="text-green name">@user.UserName</div>
-                                    <div class="status text-darkgold"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
+                                    @if (user.IsActive.HasValue && user.IsActive.Value)
+                                    {
+                                        <div class="status text-darkgold"> <i class="fa fa-circle online"></i>Now</div>
+                                    }
+                                    else if (user.IsActive.HasValue && !user.IsActive.Value)
+                                    {
+                                        <div class="status text-darkgold"> <i class="fa fa-circle offline"></i>@user.LastActiveOn.Value</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="status text-darkgold"> <i class="fa fa-circle offline"></i></div>
+                                    }
                                 </div>
                             </li>
                         }

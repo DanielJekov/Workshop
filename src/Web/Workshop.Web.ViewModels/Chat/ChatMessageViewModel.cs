@@ -1,6 +1,6 @@
 ﻿namespace Workshop.Web.ViewModels.Chat
 {
-    public class Message
+    public class ChatMessageViewModel
     {
         public string Username { get; set; }
 

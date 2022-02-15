@@ -3,12 +3,14 @@
     using System;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;
 
     using Workshop.Services.Data;
     using Workshop.Web.ViewModels.Chat;
     using Workshop.Web.ViewModels.Notifications;
 
+    [Authorize]
     public class ChatHub : Hub
     {
         private IHashProvider hashProvider;
@@ -25,7 +27,7 @@
             var currUser = this.Context.UserIdentifier;
             var hashGroup = this.hashProvider.Hash(id, currUser);
 
-            var message = new Message()
+            var message = new ChatMessageViewModel()
             {
                 Username = this.Context.User.Identity.Name,
                 MessageText = messageInput,
@@ -40,6 +42,7 @@
                 Message = messageInput,
                 Link = $"/Chat/Private/{currUser}",
             };
+
             await this.hubContext.Clients.User(id).SendAsync("NewNotification", notificationMessage);
         }
 

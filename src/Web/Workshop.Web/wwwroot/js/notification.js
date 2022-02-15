@@ -24,12 +24,12 @@ notifyConnection.on("NewNotification",
               <div class="toast-header" style="background-color: #5D6166 !important">
               <img src="/siteLogo.jpg" class="rounded mr-2" alt="/siteLogo.jpg" width="20" height="20">
               <strong class="mr-auto text-green pl-1 pr-5">${message.sender}</strong>
-              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <button type="button" class="ml-2 mb-1 close " data-dismiss="toast" aria-label="Close">
               <span aria-hidden="true" class="text-warning">&times;</span>
               </button>
               </div>
               <a class="text-decoration-none" href="${message.link}">
-              <div class="toast-body text-warning" style="background-color: #5D6166 !important">
+              <div class="toast-body text-warning" style="background-color: #5D6166 !important; word-wrap: break-word;">
               ${message.message}
               </div>
               </div>

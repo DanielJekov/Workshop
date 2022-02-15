@@ -1,42 +1,53 @@
-﻿@model ICollection<Workshop.Web.ViewModels.Users.UserModel>
-    @{ ViewData["Title"] = "Chat"; }
+﻿@model ICollection<Workshop.Web.ViewModels.Chat.ChatUserViewModel>
+@{ ViewData["Title"] = "Chat"; }
 
-    @section Styles {
+@section Styles {
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/chat.css" rel="stylesheet" asp-append-version="true" />
-    }
+}
 
-    <div class="container">
-        <div class="row clearfix">
-            <div class="col-lg-12">
-                <div class="card-custom chat-app" style="background-color: #3f474e">
-                    <div id="plist" class="people-list">
-                        <div class="input-group text-green font-weight-bold">
-                            Users
-                        </div>
-                        <ul class="list-unstyled chat-list mt-2 mb-0" style="height: calc(100vh - 350px); overflow: auto;">
-                            @foreach (var user in Model)
-                            {
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card-custom chat-app" style="background-color: #3f474e">
+                <div id="plist" class="people-list">
+                    <div class="input-group text-green font-weight-bold">
+                        Users
+                    </div>
+                    <ul class="list-unstyled chat-list mt-2 mb-0" style="height: calc(100vh - 350px); overflow: auto;">
+                        @foreach (var user in Model)
+                        {
                             <li class="clearfix" onclick="LoadUser('@user.Id')">
                                 <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
                                 <div class="about">
                                     <div class="text-green name">@user.UserName</div>
-                                    <div class="status text-darkgold"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
+                                    @if (user.IsActive.HasValue && user.IsActive.Value)
+                                    {
+                                        <div class="status text-darkgold"> <i class="fa fa-circle online"></i>Now</div>
+                                    }
+                                    else if (user.IsActive.HasValue && !user.IsActive.Value)
+                                    {
+                                        <div class="status text-darkgold"> <i class="fa fa-circle offline"></i>@user.LastActiveOn.Value</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="status text-darkgold"> <i class="fa fa-circle offline"></i></div>
+                                    }
                                 </div>
                             </li>
-                            }
-                        </ul>
-                    </div>
-                    <div class="chat">
-                        <div class="chat-history text-green h2 text-center pt-5">
-                            Choose from users list to start conversation!
-                        </div>
+                        }
+                    </ul>
+                </div>
+                <div class="chat">
+                    <div class="chat-history text-green h2 text-center pt-5">
+                        Choose from users list to start conversation!
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    @section Scripts {
+@section Scripts {
     <script src="~/js/chat.js" asp-append-version="true"></script>
-    }
+}

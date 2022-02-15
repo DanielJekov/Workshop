@@ -5,7 +5,7 @@
 
     using AutoMapper;
 
-    public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
+    public class SettingsModel : IMapFrom<Setting>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -17,7 +17,7 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Setting, SettingViewModel>().ForMember(
+            configuration.CreateMap<Setting, SettingsModel>().ForMember(
                 m => m.NameAndValue,
                 opt => opt.MapFrom(x => x.Name + " = " + x.Value));
         }

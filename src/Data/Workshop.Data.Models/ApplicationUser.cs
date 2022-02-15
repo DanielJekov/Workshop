@@ -4,9 +4,9 @@ namespace Workshop.Data.Models
     using System;
     using System.Collections.Generic;
 
-    using Workshop.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+
+    using Workshop.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
