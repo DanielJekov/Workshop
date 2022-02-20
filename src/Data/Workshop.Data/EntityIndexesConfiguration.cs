@@ -2,9 +2,9 @@
 {
     using System.Linq;
 
-    using Workshop.Data.Common.Models;
-
     using Microsoft.EntityFrameworkCore;
+
+    using Workshop.Data.Common.Models;
 
     internal static class EntityIndexesConfiguration
     {

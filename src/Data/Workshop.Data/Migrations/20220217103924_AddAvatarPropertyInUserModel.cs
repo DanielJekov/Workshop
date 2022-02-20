@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Workshop.Data.Migrations
+﻿namespace Workshop.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddAvatarPropertyInUserModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

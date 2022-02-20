@@ -16,7 +16,7 @@
 
         public ApplicationUser Receiver { get; set; }
 
-        //Notification may be from the server and so it must support no sender.
+        // Notification may be from the server and so it must support no sender.
         public string SenderId { get; set; }
 
         public ApplicationUser Sender { get; set; }

@@ -3,25 +3,20 @@
     using System;
     using System.Diagnostics;
     using System.IO;
-    using System.Threading.Tasks;
+    using System.Security.Cryptography;
+    using System.Text;
+
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
 
     using Workshop.Data;
     using Workshop.Data.Common;
     using Workshop.Data.Common.Repositories;
     using Workshop.Data.Models;
     using Workshop.Data.Repositories;
-    using Workshop.Data.Seeding;
-    using Workshop.Services.Data;
     using Workshop.Services.Messaging;
-
-    using CommandLine;
-
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-    using System.Text;
-    using System.Security.Cryptography;
 
     public static class Program
     {
@@ -31,41 +26,42 @@
             var guid2 = Guid.NewGuid().ToString().ToCharArray();
             Console.WriteLine(new string('-', 60));
 
-            //First Try 7 miliseconds!
+            // First Try 7 miliseconds!
             var stopWatch = new Stopwatch();
-            //stopWatch.Start();
-            //Console.WriteLine(GetHashFromTwoStringsNoMatterWhosFirst(guid1, guid2));
-            //stopWatch.Stop();
-            //Console.WriteLine(stopWatch.ElapsedMilliseconds);
-            //stopWatch.Reset();
 
-            //Second Try
+            // stopWatch.Start();
+            // Console.WriteLine(GetHashFromTwoStringsNoMatterWhosFirst(guid1, guid2));
+            // stopWatch.Stop();
+            // Console.WriteLine(stopWatch.ElapsedMilliseconds);
+            // stopWatch.Reset();
+
+            // Second Try
             stopWatch.Start();
             Console.WriteLine(GetHashFromTwoStringsNoMatterWhosFirst(guid1, guid2));
             stopWatch.Stop();
             Console.WriteLine(stopWatch.ElapsedMilliseconds);
 
-            //Console.WriteLine($"{typeof(Program).Namespace} ({string.Join(" ", args)}) starts working...");
-            //var serviceCollection = new ServiceCollection();
-            //ConfigureServices(serviceCollection);
-            //IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider(true);
+            // Console.WriteLine($"{typeof(Program).Namespace} ({string.Join(" ", args)}) starts working...");
+            // var serviceCollection = new ServiceCollection();
+            // ConfigureServices(serviceCollection);
+            // IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider(true);
 
             //// Seed data on application startup
-            //using (var serviceScope = serviceProvider.CreateScope())
-            //{
+            // using (var serviceScope = serviceProvider.CreateScope())
+            // {
             //    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
             //    dbContext.Database.Migrate();
             //    new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-            //}
+            // }
 
-            //using (var serviceScope = serviceProvider.CreateScope())
-            //{
+            // using (var serviceScope = serviceProvider.CreateScope())
+            // {
             //    serviceProvider = serviceScope.ServiceProvider;
 
-            //    return Parser.Default.ParseArguments<SandboxOptions>(args).MapResult(
+            // return Parser.Default.ParseArguments<SandboxOptions>(args).MapResult(
             //        opts => SandboxCode(opts, serviceProvider).GetAwaiter().GetResult(),
             //        _ => 255);
-            //}
+            // }
         }
 
         private static string GetHashFromTwoStringsNoMatterWhosFirst(char[] first, char[] second)
@@ -101,14 +97,18 @@
         private static byte[] GetHash(string inputString)
         {
             using (HashAlgorithm algorithm = SHA256.Create())
+            {
                 return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+            }
         }
 
         private static string GetHashString(string inputString)
         {
             StringBuilder sb = new StringBuilder();
             foreach (byte b in GetHash(inputString))
+            {
                 sb.Append(b.ToString("X2"));
+            }
 
             return sb.ToString();
         }

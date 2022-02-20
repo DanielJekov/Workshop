@@ -3,10 +3,10 @@
     using System;
     using System.Linq;
 
+    using Microsoft.EntityFrameworkCore;
+
     using Workshop.Data.Common.Models;
     using Workshop.Data.Common.Repositories;
-
-    using Microsoft.EntityFrameworkCore;
 
     public class EfDeletableEntityRepository<TEntity> : EfRepository<TEntity>, IDeletableEntityRepository<TEntity>
         where TEntity : class, IDeletableEntity

@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
     [AllowAnonymous]
-    public class ForgotPasswordConfirmation : PageModel
+    public class LockoutModel : PageModel
     {
         public void OnGet()
         {

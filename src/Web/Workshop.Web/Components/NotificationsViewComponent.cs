@@ -34,6 +34,7 @@
                 Notifications = this.notificationsService.GetAllSeen<NotificationViewModel>(userId).ToList(),
             };
 
+            await Task.Delay(0);
             return this.View(viewModel);
         }
     }

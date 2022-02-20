@@ -3,9 +3,9 @@
     using System;
     using System.Threading.Tasks;
 
-    using Workshop.Data.Common;
-
     using Microsoft.EntityFrameworkCore;
+
+    using Workshop.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {
