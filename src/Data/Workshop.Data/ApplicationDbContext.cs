@@ -6,11 +6,11 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using Workshop.Data.Common.Models;
-    using Workshop.Data.Models;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+
+    using Workshop.Data.Common.Models;
+    using Workshop.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -24,7 +24,9 @@
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Message> Messages { get; set; }
+
+        public DbSet<Notification> Notifications { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

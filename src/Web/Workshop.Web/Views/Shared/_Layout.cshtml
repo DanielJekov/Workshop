@@ -66,7 +66,7 @@
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     @if (this.Context.User.Identity.IsAuthenticated)
     {
-        <script src="~/js/notification.js" asp-append-version="true"></script>
+        <script src="~/js/notifications.js" asp-append-version="true"></script>
     }
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>

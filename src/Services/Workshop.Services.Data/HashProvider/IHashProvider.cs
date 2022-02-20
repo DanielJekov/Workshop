@@ -1,4 +1,4 @@
-﻿namespace Workshop.Services.Data
+﻿namespace Workshop.Services.Data.HashProvider
 {
     public interface IHashProvider
     {

@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;
 
-    using Workshop.Services.Data;
+    using Workshop.Services.Data.NotificationsUsersStatusCollection;
 
     [Authorize]
     public class NotificationHub : Hub

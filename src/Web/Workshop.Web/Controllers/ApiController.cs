@@ -1,22 +1,33 @@
 ﻿namespace Workshop.Web.Controllers
 {
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Net;
+    using System.Security.Claims;
     using System.Text.Json;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
+
+    using Workshop.Services.Data.Notifications;
+    using Workshop.Web.ViewModels.Notifications;
 
     [ApiController]
     [Route("api")]
     public class ApiController : ControllerBase
     {
         private readonly IConfiguration configuration;
+        private readonly INotificationsService notificationsService;
 
-        public ApiController(IConfiguration configuration)
+        public ApiController(
+            IConfiguration configuration,
+            INotificationsService notificationsService)
         {
             this.configuration = configuration;
+            this.notificationsService = notificationsService;
         }
 
         [Route("weather")]
@@ -61,6 +72,17 @@
             var jsonObject = JsonSerializer.Deserialize<object>(jsonResponse);
 
             return jsonObject;
+        }
+
+        [Authorize]
+        [Route("notifications")]
+        public async Task<ICollection<NotificationViewModel>> Notifications()
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var notifications = this.notificationsService.GetAllUnseen<NotificationViewModel>(userId).ToList();
+            await this.notificationsService.UpdateSeenStatusToAllAsync(userId);
+
+            return notifications;
         }
     }
 }

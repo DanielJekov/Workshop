@@ -33,10 +33,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Services\Workshop.Services.Data\Workshop.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\Workshop.Services.InputModels\Workshop.Services.InputModels.csproj" />
     <ProjectReference Include="..\..\Workshop.Common\Workshop.Common.csproj" />
     <ProjectReference Include="..\..\Data\Workshop.Data.Models\Workshop.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\Workshop.Data\Workshop.Data.csproj" />
-    <ProjectReference Include="..\..\Services\Workshop.Services.Data\Workshop.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\Workshop.Services.Mapping\Workshop.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\Workshop.Services.Messaging\Workshop.Services.Messaging.csproj" />
     <ProjectReference Include="..\..\Services\Workshop.Services\Workshop.Services.csproj" />

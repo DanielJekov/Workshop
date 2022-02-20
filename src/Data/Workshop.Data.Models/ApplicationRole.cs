@@ -3,9 +3,9 @@ namespace Workshop.Data.Models
 {
     using System;
 
-    using Workshop.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+
+    using Workshop.Data.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {
@@ -18,6 +18,7 @@ namespace Workshop.Data.Models
             : base(name)
         {
             this.Id = Guid.NewGuid().ToString();
+            this.CreatedOn = DateTime.UtcNow;
         }
 
         public DateTime CreatedOn { get; set; }

@@ -3,21 +3,23 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+    <style>
 
+    </style>
 <ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
-        <li class="nav-item ">
-            <partial name="_NotificationsPartial" />
+        <li class="nav-item notification">
+            @await Component.InvokeAsync("Notifications")
         </li>
-        <li class="nav-item ">
+        <li class="nav-item">
             <a asp-area="" asp-controller="Chat" asp-action="UsersList" class="nav-link text-chocolate">
                 <i class="fa-solid fa-message"></i>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-chocolate" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                <i class="fa-solid fa-gear"></i>
+                <i class="fa-solid fa-gear pb-3"></i>
             </a>
         </li>
         if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
@@ -28,17 +30,17 @@
         }
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@this.Url.Action("Index", "Home", new { area = string.Empty })">
-                <button type="submit" class="nav-link btn btn-link text-chocolate">Logout</button>
+                <button type="submit" class="nav-link btn btn-link text-chocolate font-weight-bold">Logout</button>
             </form>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-chocolate" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="nav-link text-chocolate font-weight-bold" asp-area="Identity" asp-page="/Account/Register">Register</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-chocolate" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="nav-link text-chocolate font-weight-bold" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>
     }
 </ul>

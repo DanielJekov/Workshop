@@ -1,7 +1,7 @@
 ﻿namespace Workshop.Web
 {
     using System.Reflection;
-
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -17,7 +17,12 @@
     using Workshop.Data.Models;
     using Workshop.Data.Repositories;
     using Workshop.Data.Seeding;
-    using Workshop.Services.Data;
+    using Workshop.Services.Cloudinary;
+    using Workshop.Services.Data.HashProvider;
+    using Workshop.Services.Data.Messages;
+    using Workshop.Services.Data.Notifications;
+    using Workshop.Services.Data.NotificationsUsersStatusCollection;
+    using Workshop.Services.Data.Users;
     using Workshop.Services.Mapping;
     using Workshop.Services.Messaging;
     using Workshop.Web.Hubs;
@@ -41,6 +46,13 @@
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
+            var cloudinaryCredentials = new CloudinaryDotNet.Account(
+            this.configuration["Cloudinary:CloudName"],
+            this.configuration["Cloudinary:ApiKey"],
+            this.configuration["Cloudinary:ApiSecret"]);
+
+            var cloudinaryUtility = new Cloudinary(cloudinaryCredentials);
+
             services.Configure<CookiePolicyOptions>(
                 options =>
                     {
@@ -57,6 +69,7 @@
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddSignalR();
 
+            services.AddSingleton(cloudinaryUtility);
             services.AddSingleton(this.configuration);
 
             // Data repositories
@@ -65,10 +78,15 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
-            services.AddTransient<IHashProvider, HashProvider>();
             services.AddSingleton<INotificationUsersStatusCollection, NotificationUsersStatusCollection>();
+
+            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<IHashProvider, HashProvider>();
+            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<INotificationsService, NotificationsService>();
+            services.AddTransient<IMessagesService, MessagesService>();
+            services.AddTransient<IHashProvider, HashProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -108,7 +126,7 @@
                 endpoints =>
                     {
                         endpoints.MapHub<ChatHub>("/chat");
-                        endpoints.MapHub<NotificationHub>("/notify");
+                        endpoints.MapHub<NotificationHub>("/notifications");
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();

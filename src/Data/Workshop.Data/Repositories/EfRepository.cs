@@ -4,9 +4,9 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Workshop.Data.Common.Repositories;
-
     using Microsoft.EntityFrameworkCore;
+
+    using Workshop.Data.Common.Repositories;
 
     public class EfRepository<TEntity> : IRepository<TEntity>
         where TEntity : class

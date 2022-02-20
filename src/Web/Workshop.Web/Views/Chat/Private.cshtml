@@ -1,4 +1,4 @@
-﻿@model ICollection<Workshop.Web.ViewModels.Chat.ChatUserViewModel>
+﻿@model Workshop.Web.ViewModels.Chat.ChatWithUserViewModel
 @{ ViewData["Title"] = "Chat"; }
 
 @section Styles {
@@ -15,10 +15,10 @@
                         Users
                     </div>
                     <ul class="list-unstyled chat-list mt-2 mb-0" style="height: calc(100vh - 245px); overflow: auto;">
-                        @foreach (var user in Model)
+                        @foreach (var user in Model.Users)
                         {
                             <li class="clearfix" onclick="LoadUser('@user.Id')">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                <img src="@user.AvatarUrl" alt="avatar">
                                 <div class="about">
                                     <div class="text-green name">@user.UserName</div>
                                     @if (user.IsActive.HasValue && user.IsActive.Value)
@@ -43,11 +43,11 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                                    <img src="@Model.OtherUser.AvatarUrl" alt="avatar">
                                 </a>
                                 <div class="chat-about">
-                                    <h6 class="m-b-0 text-green" id="Username">@ViewBag.Username</h6>
-                                    <small class="text-darkgold">Last seen: 2 hours ago</small>
+                                    <h6 class="m-b-0 text-green" id="Username">@Model.OtherUser.UserName</h6>
+                                    <small class="text-darkgold">@Model.OtherUser.LastActiveOn</small>
                                 </div>
                             </div>
                             <div class="col-lg-6 hidden-sm text-right">
@@ -57,6 +57,39 @@
                     </div>
                     <div class="chat-history">
                         <ul id="messagesList" class="m-b-0">
+                            @foreach (var message in Model.Messages)
+                            {
+                                if (message.SenderId == Model.CurrentUser.Id)
+                                {
+                                    <li name="message" class="clearfix">
+                                        <div class="message-data">
+                                            <span>
+                                                <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                                    <img src="@message.SenderAvatarUrl" alt="avatar">
+                                                </a>
+                                            </span>
+                                            <div class="message my-message">
+                                                @message.Content
+                                                <div class="text-darkgold" style="font-size: 70%">@message.CreatedOn</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li name="message" class="clearfix">
+                                        <div class="message-data text-right">
+                                            <a class="float-right" href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                                <img src="@message.SenderAvatarUrl" alt="avatar">
+                                            </a>
+                                            <div class="message other-message float-right">
+                                                @message.Content
+                                                <div class="text-darkgold" style="font-size: 70%">@message.CreatedOn</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
                         </ul>
                     </div>
                     <div class="chat-message clearfix">

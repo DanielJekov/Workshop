@@ -1,32 +1,25 @@
-﻿<div class="dropleft">
+﻿@model Workshop.Web.ViewModels.Notifications.NotificationsViewComponentViewModel
+
+<div class="dropleft" id="myDropDown">
     <span class="mt-2 mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa-solid fa-bell" style="color: chocolate"></i>
+        <i id="placeNotificationsCountAfterMe" class="fa-solid fa-bell" style="color: chocolate"></i>
+        @if (Model.UnseenCount != 0)
+        {
+            <span id="notificationsCount" class="badge-custom">@Model.UnseenCount</span>
+        }
     </span>
-    <div class="dropdown-menu border-all-borders-gold mt-4" aria-labelledby="dropdownMenuButton" style="background-color: #3f474e; width: 330px; ">
-        <a class="dropdown-item" href="/">
-            <div class="text-green">
-                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" width="20" height="20">
-                spyker156
-                <span class="text-chocolate small">10 hours ago</span>
-            </div>
-            <small class="wordwrap text-warning">afhf </small>
-        </a>
-        <a class="dropdown-item" href="/">
-            <div class="text-green">
-                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" width="20" height="20">
-                <span>spyker156</span>
-                <span class="text-chocolate small">10 hours ago</span>
-            </div>
-            <small class="wordwrap text-warning">afhasdasdasdasdasdasdadasdsadasdasdaasdasdasdasdasdasdsadasf asdasdasdasddfsdfsdfsdfsdfsd</small>
-        </a>
-        <a class="dropdown-item" href="/">
-            <div class="text-green">
-                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" width="20" height="20">
-                spyker156
-                <span class="text-chocolate small">10 hours ago</span>
-            </div>
-            <small class="wordwrap text-warning">afhf </small>
-        </a>
+
+    <div id="notifications1" class="dropdown-menu border-all-borders-gold mt-4" aria-labelledby="dropdownMenuButton" style="background-color: #3f474e; width: 350px; overflow: auto; max-height: 300px;">
+        @foreach (var notification in Model.Notifications)
+        {
+            <a class="dropdown-item" href="@notification.Link">
+                <div class="text-green">
+                    <img src="@notification.SenderAvatarUrl" alt="avatar" width="20" height="20">
+                    @notification.SenderUserName
+                    <span class="text-chocolate small">@notification.CreatedOn.ToString("HH:mm")</span>
+                </div>
+                <small class="wordwrap text-warning" style="overflow: auto; max-width:200px" >@notification.Description </small>
+            </a>
+        }
     </div>
 </div>
-

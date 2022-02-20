@@ -29,34 +29,29 @@ function Join() {
 
 connection.on("NewMessage",
     function (message) {
-        var currentUserMessage =
-            `<li name="message" class="clearfix">
+        console.log(message.sender);
+        if ($("h6#Username").html() !== message.senderUserName) {
+            var result = `<li name="message" class="clearfix">
                                <div class="message-data">
                                <span> <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                               <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                               <img src="${message.senderAvatarUrl}" alt="avatar">
                                </a></span>
-                               <div class="message my-message">${escapeHtml(message.messageText)}
+                               <div class="message my-message">${escapeHtml(message.content)}
                                <div class="text-darkgold" style="font-size: 70%">${message.createdOn}</div>
                                </div>
                                </div>
                                </li>`;
-
-        var otherPersonMessage =
-            `<li name="message" class="clearfix">
+        }
+        else {
+            var result = `<li name="message" class="clearfix">
                                 <div class="message-data text-right">
                                 <a class="float-right" href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                                <img src="${message.senderAvatarUrl}" alt="avatar">
                                 </a>
-                                <div class="message other-message float-right">${escapeHtml(message.messageText)}
+                                <div class="message other-message float-right">${escapeHtml(message.content)}
                                 <div class="text-darkgold" style="font-size: 70%">${message.createdOn}</div></div>
                                 </div>
                                 </li>`;
-
-        if ($("h6#Username").html() !== message.username) {
-            var result = currentUserMessage;
-        }
-        else {
-            var result = otherPersonMessage;
         }
 
         $("#messagesList").append(result);
@@ -71,10 +66,10 @@ connection.on("NewMessage",
 $("#sendButton").click(Sender);
 
 function Sender() {
-    var messageInput = $("#messageInput").val();
-    if (messageInput.trim().length !== 0) {
+    var messageContent = $("#messageInput").val();
+    if (messageContent.trim().length !== 0) {
         var id = $("#ToUserWithId").val();
-        connection.invoke("Send", id, messageInput);
+        connection.invoke("Send", id, messageContent);
         $("#messageInput").val("");
     }
 };

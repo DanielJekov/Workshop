@@ -1,4 +1,4 @@
-﻿namespace Workshop.Services.Data
+﻿namespace Workshop.Services.Data.NotificationsUsersStatusCollection
 {
     using System.Collections.ObjectModel;
 
