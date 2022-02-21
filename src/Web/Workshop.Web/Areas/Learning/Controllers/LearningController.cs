@@ -5,32 +5,32 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using Workshop.Web.ViewModels.Resourses;
+    using Workshop.Web.ViewModels.Topics;
 
     [Authorize(Roles = "Learning")]
     [Area("Learning")]
-    public class ResourseController : Controller
+    public class LearningController : Controller
     {
         public IActionResult Index()
         {
-            var viewModel = new List<ResourseViewModel>()
+            var viewModel = new List<TopicViewModel>()
             {
-                new ResourseViewModel()
+                new TopicViewModel()
                 {
                     Name = "Basic Arrays",
                 },
 
-                new ResourseViewModel()
+                new TopicViewModel()
                 {
                     Name = "Basic Arrays Exercice",
                 },
 
-                new ResourseViewModel()
+                new TopicViewModel()
                 {
                     Name = "Test",
                 },
 
-                new ResourseViewModel()
+                new TopicViewModel()
                 {
                     Name = "Test1",
                 },

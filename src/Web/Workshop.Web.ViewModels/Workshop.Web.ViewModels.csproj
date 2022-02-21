@@ -23,4 +23,9 @@
     <ProjectReference Include="..\..\Services\Workshop.Services.Mapping\Workshop.Services.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Courses\" />
+    <Folder Include="Resourses\" />
+  </ItemGroup>
+
 </Project>
