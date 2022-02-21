@@ -12,8 +12,11 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
 
+    using Workshop.Common;
     using Workshop.Services.Data.Notifications;
+    using Workshop.Services.Data.Roles;
     using Workshop.Web.ViewModels.Notifications;
+    using Workshop.Web.ViewModels.Roles;
 
     [ApiController]
     [Route("api")]
@@ -21,13 +24,16 @@
     {
         private readonly IConfiguration configuration;
         private readonly INotificationsService notificationsService;
+        private readonly IRolesService roleService;
 
         public ApiController(
             IConfiguration configuration,
-            INotificationsService notificationsService)
+            INotificationsService notificationsService,
+            IRolesService roleService)
         {
             this.configuration = configuration;
             this.notificationsService = notificationsService;
+            this.roleService = roleService;
         }
 
         [Route("weather")]
@@ -83,6 +89,43 @@
             await this.notificationsService.UpdateSeenStatusToAllAsync(userId);
 
             return notifications;
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Route("RemoveRole/{id}")]
+        public async Task RemoveRole(string id)
+        {
+            await this.roleService.RemoveAsync(id);
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Route("role-users/{id}")]
+        public IEnumerable<UserViewModel> GetUsersFromGivenRole(string id)
+        {
+            var usersFromGivenRole = this.roleService.GetUsersFromGivenRole<UserViewModel>(id).ToList();
+
+            return usersFromGivenRole;
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Route("remove-user-from-given-role")]
+        public async Task RemoveUserFromRole(string roleId, string userId)
+        {
+            await this.roleService.RemoveUserFromRole(roleId, userId);
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Route("users-who-are-not-in-given-role/{id}")]
+        public ICollection<UserViewModel> UsersWhoAreNotInGivenRole(string id)
+        {
+            return this.roleService.UsersWhoAreNotInGivenRole<UserViewModel>(id).ToList();
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Route("add-user-to-role")]
+        public async Task AddUserToRole(string roleId, string userId)
+        {
+            await this.roleService.AddUserToRole(roleId, userId);
         }
     }
 }

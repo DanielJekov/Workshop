@@ -24,6 +24,7 @@
     using Workshop.Services.Data.Messages;
     using Workshop.Services.Data.Notifications;
     using Workshop.Services.Data.NotificationsUsersStatusCollection;
+    using Workshop.Services.Data.Roles;
     using Workshop.Services.Data.Users;
     using Workshop.Services.Mapping;
     using Workshop.Services.Messaging;
@@ -89,6 +90,7 @@
             services.AddTransient<INotificationsService, NotificationsService>();
             services.AddTransient<IMessagesService, MessagesService>();
             services.AddTransient<IHashProvider, HashProvider>();
+            services.AddTransient<IRolesService, RolesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

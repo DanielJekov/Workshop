@@ -7,14 +7,14 @@
 
     public interface INotificationsService
     {
-        public Task CreateAsync(NotificationCreateInputModel input);
+        Task CreateAsync(NotificationCreateInputModel input);
 
-        public IEnumerable<T> GetAllUnseen<T>(string userId);
+        IEnumerable<T> GetAllUnseen<T>(string userId);
 
-        public IEnumerable<T> GetAllSeen<T>(string userId);
+        IEnumerable<T> GetAllSeen<T>(string userId);
 
-        public Task UpdateSeenStatusToAllAsync(string userId);
+        Task UpdateSeenStatusToAllAsync(string userId);
 
-        public int GetCountOfUnseen(string userId);
+        int GetCountOfUnseen(string userId);
     }
 }

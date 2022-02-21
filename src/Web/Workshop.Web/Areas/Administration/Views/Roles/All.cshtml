@@ -1,0 +1,124 @@
+﻿@{
+    this.ViewData["Title"] = "Roles";
+}
+
+<div class="row">
+    <div class="col-8">
+        <table class="table table-striped" style="background-color: darkseagreen">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                </tr>
+            </thead>
+            <tbody >
+                @foreach (var role in Model)
+                {
+                    <tr>
+                        <th scope="row">1</th>
+                        <td class="font-weight-bold">@role.Name</td>
+                        <td>
+                            <button type="button" class="btn btn-success" onclick="LoadUsersOutOfGivenRole('@role.Id')" data-toggle="modal" data-target="#exampleModal">
+                                Add User
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning" onclick="LoadUsersInGivenRole('@role.Id')" data-toggle="modal" data-target="#exampleModal">
+                                Users in this role
+                            </button>
+                        </td>
+                        <td>
+                            <form asp-area="Administration" asp-controller="Roles" asp-action="Remove" method="post">
+                                <input type="hidden" name="Id" value="@role.Id" />
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-4">
+        <form class="form-group" asp-area="Administration" asp-controller="Roles" asp-action="Add" method="post">
+            <input class="form-control row-cols-2" type="text" name="name" value="" />
+            <button class="btn btn-success mt-2">Add new role</button>
+        </form>
+    </div>
+</div>
+<partial name="_UsersInGivenRoleModalPartial" />
+
+@section Scripts{
+    <script>
+        $('#myModal').on('hidden.bs.modal', function (e) {
+            $('#usersRoleModal').html('');
+            $('#modalRoleId').val('');
+        });
+
+        function LoadUsersInGivenRole(roleId) {
+            $("#modalRoleId").val(roleId);
+            $.ajax({
+                url: `/api/role-users/${roleId}`,
+                type: 'get',
+                datatype: 'json',
+                success: function (response) {
+                    response.forEach(function (user) {
+                        var result = `<tr>
+                                          <td class="font-weight-bold">${user.userName}</td>
+                                          <td>
+                                          <button class="btn btn-danger" onclick="RemoveUserFromGivenRole('${user.id}')">Remove</button>
+                                          </td>
+                                          </tr>`;
+
+                        $("#usersRoleModal").append(result);
+                    });
+                }
+            });
+        }
+
+        function RemoveUserFromGivenRole(userId) {
+            // TODO: Imlement cleanin input field from old modalRoleId.
+            var roleId = $("#modalRoleId").val();
+            $.ajax({
+                url: `/api/remove-user-from-given-role?roleId=${roleId}&userId=${userId}`,
+                type: 'get',
+                datatype: 'json',
+                success: function (response) {
+                }
+            });
+        }
+        function AddUserToRole(userId) {
+            var roleId = $("#modalRoleId").val();
+            $.ajax({
+                url: `/api/add-user-to-role?roleId=${roleId}&userId=${userId}`,
+                type: 'get',
+                datatype: 'json',
+                success: function (response) {
+                }
+            });
+        }
+
+        function LoadUsersOutOfGivenRole(roleId) {
+            $("#modalRoleId").val(roleId);
+            $.ajax({
+                url: `/api/users-who-are-not-in-given-role/${roleId}`,
+                type: 'get',
+                datatype: 'json',
+                success: function (response) {
+                    response.forEach(function (user) {
+                        var result = `<tr>
+                                          <td class="font-weight-bold">${user.userName}</td>
+                                          <td>
+                                          <button class="btn btn-success" onclick="AddUserToRole('${user.id}')">Add to the role</button>
+                                          </td>
+                                          </tr>`;
+
+                        $("#usersRoleModal").append(result);
+                    });
+                }
+            });
+        }
+    </script>
+}
+
+

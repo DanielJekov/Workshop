@@ -7,8 +7,8 @@
 
     public interface IMessagesService
     {
-        public Task CreateAsync(MessageCreateInputModel input);
+        Task CreateAsync(MessageCreateInputModel input);
 
-        public IEnumerable<T> GetAll<T>(string currentUserId, string otherUserId);
+        IEnumerable<T> GetAll<T>(string currentUserId, string otherUserId);
     }
 }

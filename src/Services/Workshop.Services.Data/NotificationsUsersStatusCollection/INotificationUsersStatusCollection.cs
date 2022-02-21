@@ -4,18 +4,18 @@
 
     public interface INotificationUsersStatusCollection
     {
-        public ReadOnlyCollection<NotificationHubUsersStatusModel> UsersCollection { get; }
+        ReadOnlyCollection<NotificationHubUsersStatusModel> UsersCollection { get; }
 
-        public void Add(string userName);
+        void Add(string userName);
 
-        public void Remove(string userName);
+        void Remove(string userName);
 
-        public void Active(string userName);
+        void Active(string userName);
 
-        public void NonActive(string userName);
+        void NonActive(string userName);
 
-        public bool IsActive(string userName);
+        bool IsActive(string userName);
 
-        public bool IsInCollection(string userName);
+        bool IsInCollection(string userName);
     }
 }

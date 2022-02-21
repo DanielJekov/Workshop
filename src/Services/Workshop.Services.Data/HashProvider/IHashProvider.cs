@@ -2,6 +2,6 @@
 {
     public interface IHashProvider
     {
-        public string Hash(string first, string second);
+        string Hash(string first, string second);
     }
 }

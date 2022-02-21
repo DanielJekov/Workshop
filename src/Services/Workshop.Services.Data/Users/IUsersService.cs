@@ -4,6 +4,6 @@
 
     public interface IUsersService
     {
-        public IEnumerable<T> GetAll<T>();
+        IEnumerable<T> GetAll<T>();
     }
 }
