@@ -13,24 +13,24 @@
     {
         public IActionResult Index()
         {
-            var viewModel = new List<ResourseModel>()
+            var viewModel = new List<ResourseViewModel>()
             {
-                new ResourseModel()
+                new ResourseViewModel()
                 {
                     Name = "Basic Arrays",
                 },
 
-                new ResourseModel()
+                new ResourseViewModel()
                 {
                     Name = "Basic Arrays Exercice",
                 },
 
-                new ResourseModel()
+                new ResourseViewModel()
                 {
                     Name = "Test",
                 },
 
-                new ResourseModel()
+                new ResourseViewModel()
                 {
                     Name = "Test1",
                 },

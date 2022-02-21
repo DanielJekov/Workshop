@@ -28,6 +28,10 @@
 
         public DbSet<Notification> Notifications { get; set; }
 
+        public DbSet<Course> Courses { get; set; }
+
+        public DbSet<Topic> Topics { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

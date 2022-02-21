@@ -28,14 +28,14 @@
                             <a class="nav-link text-chocolate font-weight-bold" target="_blank" href="https://github.com/DanielJekov">Github</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-chocolate font-weight-bold" asp-area="" asp-controller="Home" asp-action="Resourses">Resourses</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-chocolate font-weight-bold" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         @if (this.Context.User.Identity.IsAuthenticated &&
-                            this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                           this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {
+                            <li class="nav-item">
+                                <a class="nav-link text-chocolate font-weight-bold" asp-area="Learning" asp-controller="Resourse" asp-action="Index">Resourses</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-chocolate font-weight-bold" asp-area="Administration" asp-controller="Roles" asp-action="All">Roles</a>
                             </li>

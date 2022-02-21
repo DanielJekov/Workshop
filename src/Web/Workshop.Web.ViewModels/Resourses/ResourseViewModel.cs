@@ -1,6 +1,6 @@
 ﻿namespace Workshop.Web.ViewModels.Resourses
 {
-    public class ResourseModel
+    public class ResourseViewModel
     {
         public string Name { get; set; }
 

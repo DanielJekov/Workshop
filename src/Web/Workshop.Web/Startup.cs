@@ -20,11 +20,13 @@
     using Workshop.Data.Repositories;
     using Workshop.Data.Seeding;
     using Workshop.Services.Cloudinary;
+    using Workshop.Services.Data.Courses;
     using Workshop.Services.Data.HashProvider;
     using Workshop.Services.Data.Messages;
     using Workshop.Services.Data.Notifications;
     using Workshop.Services.Data.NotificationsUsersStatusCollection;
     using Workshop.Services.Data.Roles;
+    using Workshop.Services.Data.Topics;
     using Workshop.Services.Data.Users;
     using Workshop.Services.Mapping;
     using Workshop.Services.Messaging;
@@ -91,6 +93,8 @@
             services.AddTransient<IMessagesService, MessagesService>();
             services.AddTransient<IHashProvider, HashProvider>();
             services.AddTransient<IRolesService, RolesService>();
+            services.AddTransient<ICoursesService, CoursesService>();
+            services.AddTransient<ITopicsService, TopicsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -125,6 +129,8 @@
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseStatusCodePagesWithRedirects("/Home/Error{0}");
 
             app.UseEndpoints(
                 endpoints =>

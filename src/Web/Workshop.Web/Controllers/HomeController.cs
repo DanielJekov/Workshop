@@ -4,25 +4,21 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using Workshop.Services.Data;
-    using Workshop.Services.Data.Notifications;
     using Workshop.Web.ViewModels;
 
     public class HomeController : BaseController
     {
-        private INotificationsService notificationsService;
-
-        public HomeController(INotificationsService notificationsService)
-        {
-            this.notificationsService = notificationsService;
-        }
-
         public IActionResult Index()
         {
             return this.View();
         }
 
         public IActionResult Privacy()
+        {
+            return this.View();
+        }
+
+        public IActionResult Error404()
         {
             return this.View();
         }
