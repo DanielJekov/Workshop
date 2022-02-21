@@ -11,12 +11,12 @@
 
         Task RemoveAsync(string id);
 
-        IEnumerable<T> GetUsersFromGivenRole<T>(string roleId);
+        Task AddUserToRoleAsync(string roleId, string userId);
 
-        Task AddUserToRole(string roleId, string userId);
-
-        Task RemoveUserFromRole(string roleId, string userId);
+        Task RemoveUserFromRoleAsync(string roleId, string userId);
 
         IEnumerable<T> UsersWhoAreNotInGivenRole<T>(string roleId);
+
+        IEnumerable<T> GetUsersFromGivenRole<T>(string roleId);
     }
 }

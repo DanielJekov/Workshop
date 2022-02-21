@@ -47,26 +47,26 @@
             await this.rolesRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetUsersFromGivenRole<T>(string roleId)
-        {
-            return this.userManager.Users
-                                   .Where(x => x.Roles.Any(x => x.RoleId == roleId))
-                                   .To<T>()
-                                   .ToList();
-        }
-
-        public async Task AddUserToRole(string roleId, string userId)
+        public async Task AddUserToRoleAsync(string roleId, string userId)
         {
             var user = await this.userManager.FindByIdAsync(userId);
             var roleName = await this.roleManager.GetRoleNameAsync(await this.roleManager.FindByIdAsync(roleId));
             await this.userManager.AddToRoleAsync(user, roleName);
         }
 
-        public async Task RemoveUserFromRole(string roleId, string userId)
+        public async Task RemoveUserFromRoleAsync(string roleId, string userId)
         {
             var user = await this.userManager.FindByIdAsync(userId);
             var roleName = await this.roleManager.GetRoleNameAsync(await this.roleManager.FindByIdAsync(roleId));
             await this.userManager.RemoveFromRoleAsync(user, roleName);
+        }
+
+        public IEnumerable<T> GetUsersFromGivenRole<T>(string roleId)
+        {
+            return this.userManager.Users
+                                   .Where(x => x.Roles.Any(x => x.RoleId == roleId))
+                                   .To<T>()
+                                   .ToList();
         }
 
         public IEnumerable<T> UsersWhoAreNotInGivenRole<T>(string roleId)

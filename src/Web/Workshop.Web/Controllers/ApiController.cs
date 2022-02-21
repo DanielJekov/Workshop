@@ -111,7 +111,7 @@
         [Route("remove-user-from-given-role")]
         public async Task RemoveUserFromRole(string roleId, string userId)
         {
-            await this.roleService.RemoveUserFromRole(roleId, userId);
+            await this.roleService.RemoveUserFromRoleAsync(roleId, userId);
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
@@ -125,7 +125,7 @@
         [Route("add-user-to-role")]
         public async Task AddUserToRole(string roleId, string userId)
         {
-            await this.roleService.AddUserToRole(roleId, userId);
+            await this.roleService.AddUserToRoleAsync(roleId, userId);
         }
     }
 }
