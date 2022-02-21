@@ -2,10 +2,13 @@
 {
     using System.Collections.Generic;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Workshop.Web.ViewModels.Resourses;
 
+    [Authorize(Roles = "Learning")]
+    [Area("Learning")]
     public class ResourseController : Controller
     {
         public IActionResult Index()

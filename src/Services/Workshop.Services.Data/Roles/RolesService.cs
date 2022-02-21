@@ -36,7 +36,12 @@
 
         public async Task AddAsync(string name)
         {
-            await this.rolesRepository.AddAsync(new ApplicationRole { Name = name });
+            await this.rolesRepository.AddAsync(
+                                                new ApplicationRole
+                                                {
+                                                    Name = name,
+                                                    NormalizedName = name.ToUpper(),
+                                                });
             await this.rolesRepository.SaveChangesAsync();
         }
 
