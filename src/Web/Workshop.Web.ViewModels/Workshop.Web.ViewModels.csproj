@@ -8,6 +8,12 @@
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Resourses\**" />
+    <EmbeddedResource Remove="Resourses\**" />
+    <None Remove="Resourses\**" />
+  </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
@@ -25,7 +31,6 @@
 
   <ItemGroup>
     <Folder Include="Courses\" />
-    <Folder Include="Resourses\" />
   </ItemGroup>
 
 </Project>

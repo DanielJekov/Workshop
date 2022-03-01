@@ -126,7 +126,8 @@
         [Route("users-who-are-not-in-given-role/{id}")]
         public ICollection<UserViewModel> UsersWhoAreNotInGivenRole(string id)
         {
-            return this.roleService.UsersWhoAreNotInGivenRole<UserViewModel>(id).ToList();
+            var result = this.roleService.UsersWhoAreNotInGivenRole<UserViewModel>(id).ToList();
+            return result;
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
@@ -137,9 +138,9 @@
         }
 
         [Route("search")]
-        public ICollection<UserViewModel> Search([FromQuery]string searchText)
+        public ICollection<Workshop.Web.ViewModels.Users.UserViewModel> Search([FromQuery] string searchText)
         {
-            var result = this.searchService.Users<UserViewModel>(searchText);
+            var result = this.searchService.Users<Workshop.Web.ViewModels.Users.UserViewModel>(searchText);
             return result;
         }
     }

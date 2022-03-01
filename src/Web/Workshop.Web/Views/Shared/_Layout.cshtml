@@ -45,9 +45,16 @@
                 <form class="form-inline">
                     <div class="dropdown">
                         <input id="searchInput" class="form-control mr-sm-2 border-all-borders-gold text-warning  dropdown-toggle" type="search" placeholder="Search" aria-label="Search" style="background-color: transparent;" oninput="SearchLoader()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div id="result-list" class="dropdown-menu" aria-labelledby="searchInput" style="background-color: #3f474e !important">
-                            <div class="dropdown-item text-center search-result text-blue">Тhere are no results</div>
-
+                        <div id="result-list" class="dropdown-menu border-all-borders-gold" aria-labelledby="searchInput" style="background-color: #3f474e !important; overflow:auto; width: 300px; max-width:300px">
+                            <div id="result-list-users" class=" text-blue pl-4">
+                                Users
+                            </div>
+                            @*<div id="result-list-notifications" class=" text-blue pl-4">
+                                Notifications
+                            </div>
+                            <div id="result-list-resourses" class=" text-blue pl-4">
+                                Resourses
+                            </div>*@
                         </div>
                     </div>
                 </form>
@@ -71,13 +78,13 @@
                     var counter = 0;
                     response.forEach(function (repo) {
                         counter += 1;
-                        var innermyspan = document.getElementById("result-list").innerHTML;
-                        document.getElementById("result-list").innerHTML = innermyspan + `<a class="dropdown-item search-result text-blue" href = "#"> ${repo.userName} </a>`;
+                        var innermyspan = document.getElementById("result-list-users").innerHTML;
+                        document.getElementById("result-list-users").innerHTML = innermyspan + `<a class="dropdown-item search-result text-green" href = "#"> <img src="${repo.avatarUrl}" alt="Alternate Text"  width="20" height="20" />  ${repo.userName} </a>`;
 
                     });
                     if (counter === 0) {
-                        var innermyspan = document.getElementById("result-list").innerHTML;
-                        document.getElementById("result-list").innerHTML = innermyspan + `<div class="dropdown-item search-result text-blue">Тhere are no results</div>`;
+                        var innermyspan = document.getElementById("result-list-users").innerHTML;
+                        document.getElementById("result-list-users").innerHTML = innermyspan + `<div class="dropdown-item search-result text-green">Тhere are no results</div>`;
                     }
                 }
             });

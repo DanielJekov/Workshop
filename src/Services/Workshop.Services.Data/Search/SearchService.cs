@@ -20,8 +20,7 @@
         {
             var result = this.userRepository
                        .AllAsNoTracking()
-                       .Where(x => x.UserName.Contains(searchWord) ||
-                                   x.Email.Contains(searchWord))
+                       .Where(x => x.UserName.Contains(searchWord))
                        .To<T>()
                        .ToList();
 
