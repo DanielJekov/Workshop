@@ -31,7 +31,7 @@
                             <a class="nav-link text-chocolate font-weight-bold" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         @if (this.Context.User.Identity.IsAuthenticated &&
-                           this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+             this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-chocolate font-weight-bold" asp-area="Learning" asp-controller="Resourse" asp-action="Index">Resourses</a>
@@ -42,10 +42,47 @@
                         }
                     </ul>
                 </div>
+                <form class="form-inline">
+                    <div class="dropdown">
+                        <input id="searchInput" class="form-control mr-sm-2 border-all-borders-gold text-warning  dropdown-toggle" type="search" placeholder="Search" aria-label="Search" style="background-color: transparent;" oninput="SearchLoader()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div id="result-list" class="dropdown-menu" aria-labelledby="searchInput" style="background-color: #3f474e !important">
+                            <div class="dropdown-item text-center search-result text-blue">Тhere are no results</div>
+
+                        </div>
+                    </div>
+                </form>
+
                 <partial name="_LoginPartial" />
             </div>
         </nav>
     </header>
+    <script>
+        function SearchLoader() {
+            const boxes = document.querySelectorAll('.dropdown-item');
+            boxes.forEach(box => {
+                box.remove();
+            });
+            $('#result-list').dropdown('show');
+            $.ajax({
+                url: `/api/search?searchText=${$("#searchInput").val()}`,
+                type: 'get',
+                datatype: 'json',
+                success: function (response) {
+                    var counter = 0;
+                    response.forEach(function (repo) {
+                        counter += 1;
+                        var innermyspan = document.getElementById("result-list").innerHTML;
+                        document.getElementById("result-list").innerHTML = innermyspan + `<a class="dropdown-item search-result text-blue" href = "#"> ${repo.userName} </a>`;
+
+                    });
+                    if (counter === 0) {
+                        var innermyspan = document.getElementById("result-list").innerHTML;
+                        document.getElementById("result-list").innerHTML = innermyspan + `<div class="dropdown-item search-result text-blue">Тhere are no results</div>`;
+                    }
+                }
+            });
+        }
+    </script>
 
     <div class="container">
         <main role="main" class="pb-3">

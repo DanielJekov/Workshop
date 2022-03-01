@@ -26,6 +26,7 @@
     using Workshop.Services.Data.Notifications;
     using Workshop.Services.Data.NotificationsUsersStatusCollection;
     using Workshop.Services.Data.Roles;
+    using Workshop.Services.Data.Search;
     using Workshop.Services.Data.Topics;
     using Workshop.Services.Data.Users;
     using Workshop.Services.Mapping;
@@ -57,6 +58,8 @@
             this.configuration["Cloudinary:ApiSecret"]);
 
             var cloudinaryUtility = new Cloudinary(cloudinaryCredentials);
+
+            services.AddHttpContextAccessor();
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -95,6 +98,7 @@
             services.AddTransient<IRolesService, RolesService>();
             services.AddTransient<ICoursesService, CoursesService>();
             services.AddTransient<ITopicsService, TopicsService>();
+            services.AddTransient<ISearchService, SearchService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -9,12 +9,14 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
 
     using Workshop.Common;
     using Workshop.Services.Data.Notifications;
     using Workshop.Services.Data.Roles;
+    using Workshop.Services.Data.Search;
     using Workshop.Web.ViewModels.Notifications;
     using Workshop.Web.ViewModels.Roles;
 
@@ -25,15 +27,21 @@
         private readonly IConfiguration configuration;
         private readonly INotificationsService notificationsService;
         private readonly IRolesService roleService;
+        private readonly ISearchService searchService;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
         public ApiController(
             IConfiguration configuration,
             INotificationsService notificationsService,
-            IRolesService roleService)
+            ISearchService searchService,
+            IRolesService roleService,
+            IHttpContextAccessor httpContextAccessor)
         {
             this.configuration = configuration;
             this.notificationsService = notificationsService;
             this.roleService = roleService;
+            this.searchService = searchService;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         [Route("weather")]
@@ -126,6 +134,13 @@
         public async Task AddUserToRole(string roleId, string userId)
         {
             await this.roleService.AddUserToRoleAsync(roleId, userId);
+        }
+
+        [Route("search")]
+        public ICollection<UserViewModel> Search([FromQuery]string searchText)
+        {
+            var result = this.searchService.Users<UserViewModel>(searchText);
+            return result;
         }
     }
 }
