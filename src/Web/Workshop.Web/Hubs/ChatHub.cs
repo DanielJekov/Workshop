@@ -57,7 +57,7 @@
                 SenderUserName = currUser.UserName,
                 SenderAvatarUrl = currUser.AvatarUrl,
                 Content = messageContent,
-                CreatedOn = string.Concat("Today, ", DateTime.Now.ToString("HH:mm")),
+                CreatedOn = DateTime.UtcNow.ToString(),
             };
             await this.Clients.Group(hashGroup).SendAsync("NewMessage", message);
 

@@ -1,1 +1,33 @@
-﻿
+﻿@model ICollection<Workshop.Web.ViewModels.Courses.CourseViewModel>
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<div class="row">
+    <div class="col-9">
+        <label class="text-purple h5">@ViewData["Title"]</label>
+        <div class="card border-gold" style="background-color: #343a40;">
+            <div class="container text-white text-center h5">
+                @if (Model.Count == 0)
+                {
+                    <h3 class="text-blue">There are not any courses.</h3>
+                }
+                @foreach (var course in Model)
+                {
+                    <a class="card pb-2 pt-2 mb-4 mt-4 text-left text-white text-decoration-none" asp-area="Learning" asp-controller="Topics" asp-action="All" asp-route-courseId="@course.Id" style="background-color: cadetblue;">
+                        @course.Name
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <label class="text-purple h5"> Add new course</label>
+        <form class="form-group" asp-area="Learning" asp-controller="Courses" asp-action="Create" method="post">
+            <div class="row">
+                <input class="form-control col-10" type="text" name="name" value="" />
+                <button class="btn btn-success col-2">+</button>
+            </div>
+        </form>
+    </div>
+</div>

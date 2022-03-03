@@ -1,11 +1,16 @@
 ﻿namespace Workshop.Web.ViewModels.Chat
 {
+    using System;
+
     using Workshop.Data.Models;
     using Workshop.Services.Mapping;
+
+    using static Workshop.Common.GlobalConstants;
 
     public class MessageViewModel : IMapFrom<Message>
     {
         private string senderAvatarUrl;
+        private string createdOn;
 
         public string SenderId { get; set; }
 
@@ -33,6 +38,17 @@
 
         public string Content { get; set; }
 
-        public string CreatedOn { get; set; }
+        public string CreatedOn
+        {
+            get
+            {
+                return this.createdOn;
+            }
+
+            set
+            {
+                this.createdOn = DateTime.Parse(value).ToString(DateTimeFormat);
+            }
+        }
     }
 }

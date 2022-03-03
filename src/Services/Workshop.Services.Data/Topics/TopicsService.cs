@@ -22,6 +22,7 @@
         {
             var topic = new Topic()
             {
+                CourseId = input.CourseId,
                 Name = input.Name,
                 Note = input.Note,
                 YoutubeLink = input.YoutubeLink,

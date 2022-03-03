@@ -6,6 +6,7 @@
 
     using Workshop.Services.Data.Courses;
     using Workshop.Web.Areas.Resourses.Controllers;
+    using Workshop.Web.ViewModels.Courses;
 
     public class CoursesController : LearningController
     {
@@ -18,16 +19,17 @@
 
         public IActionResult All()
         {
-            var viewModel = this.coursesService.GetAll<object>();
+            var viewModel = this.coursesService.GetAll<CourseViewModel>();
 
             return this.View(viewModel);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Create(string name)
         {
             await this.coursesService.CreateAsync(name);
 
-            return this.Redirect("/");
+            return this.RedirectToAction("All", "Courses", new { area = "Learning" });
         }
 
         public async Task<IActionResult> Delete(int id)

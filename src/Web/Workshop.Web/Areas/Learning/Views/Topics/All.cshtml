@@ -1,1 +1,52 @@
-﻿
+﻿@model ICollection<Workshop.Web.ViewModels.Topics.TopicViewModel>
+@{
+    ViewData["Title"] = "Topics";
+    var counter = 1;
+}
+
+<div class="row">
+    <div class="col-8">
+        <label class="text-purple text-center h5">@ViewData["Title"]</label>
+        <div class="card border-gold" style="background-color: #343a40;">
+            <div class="container">
+                @if (Model.Count == 0)
+                {
+                    <h3 class="text-blue">There are not any topics.</h3>
+                }
+                <ul class="list-unstyled">
+                    @foreach (var topic in Model)
+                    {
+                        <li id="Topic@(counter)" class="text-white text-decoration-none" onclick="ShowTopic(@(counter))">
+                            <input type="hidden" id="note@(counter)" name="note@(counter)" value="@topic.Note" />
+                            <input type="hidden" id="youtubeUrl@(counter)" name="youtubeUrl@(counter)" value="@topic.YoutubeLink" />
+                            <div id="name@(counter)" class="card-header border-gold rounded-top mt-3 pb-2 text-gold h5" style="background-color: goldenrod; color: floralwhite">
+                                @topic.Name
+                            </div>
+                        </li>
+                        counter++;
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <label class="text-purple h5"> Add new topic</label>
+        <partial name="_TopicCreatePartial" model="@new Workshop.Services.InputModels.Topics.TopicInputModel()" />
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script src="~/js/resourses-loader.js" asp-append-version="true"></script>
+    <script src="/lib/tinymce/tinymce.min.js" type="text/javascript" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea",
+            plugins: [
+                "image paste table link code media"
+            ]
+        });
+    </script>
+}

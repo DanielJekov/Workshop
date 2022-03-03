@@ -5,9 +5,12 @@
     using Workshop.Data.Models;
     using Workshop.Services.Mapping;
 
+    using static Workshop.Common.GlobalConstants;
+
     public class NotificationViewModel : IMapFrom<Notification>
     {
         private string senderAvatarUrl;
+        private string createdOn;
 
         public int Id { get; set; }
 
@@ -15,7 +18,18 @@
 
         public bool IsSeen { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public string CreatedOn
+        {
+            get
+            {
+                return this.createdOn;
+            }
+
+            set
+            {
+                this.createdOn = DateTime.Parse(value).ToString(DateTimeFormat);
+            }
+        }
 
         public string SenderId { get; set; }
 

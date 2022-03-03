@@ -29,7 +29,6 @@ function Join() {
 
 connection.on("NewMessage",
     function (message) {
-        console.log(message.sender);
         if ($("h6#Username").html() !== message.senderUserName) {
             var result = `<li name="message" class="clearfix">
                                <div class="message-data">

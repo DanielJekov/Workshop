@@ -31,10 +31,10 @@
                             <a class="nav-link text-chocolate font-weight-bold" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         @if (this.Context.User.Identity.IsAuthenticated &&
-             this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-chocolate font-weight-bold" asp-area="Learning" asp-controller="Resourse" asp-action="Index">Resourses</a>
+                                <a class="nav-link text-chocolate font-weight-bold" asp-area="Learning" asp-controller="Courses" asp-action="All">Courses</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-chocolate font-weight-bold" asp-area="Administration" asp-controller="Roles" asp-action="All">Roles</a>
@@ -50,11 +50,11 @@
                                 Users
                             </div>
                             @*<div id="result-list-notifications" class=" text-blue pl-4">
-                                Notifications
-                            </div>
-                            <div id="result-list-resourses" class=" text-blue pl-4">
-                                Resourses
-                            </div>*@
+                                    Notifications
+                                </div>
+                                <div id="result-list-resourses" class=" text-blue pl-4">
+                                    Resourses
+                                </div>*@
                         </div>
                     </div>
                 </form>
@@ -63,6 +63,34 @@
             </div>
         </nav>
     </header>
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            <partial name="_CookieConsentPartial" />
+            @this.RenderBody()
+        </main>
+    </div>
+
+    <div aria-live="polite" aria-atomic="true" style="z-index: 11; position: fixed; min-height: 0px;">
+        <div id="notifications" style="position: fixed; bottom: 50px; right: 50px;">
+        </div>
+    </div>
+
+    <footer class="border-custom-gold border-top footer text-muted bg-dark text-center">
+        <div class="container text-chocolate">
+            &copy; @DateTime.Now.Year - Daniel @GlobalConstants.SystemName
+        </div>
+    </footer>
+
+    <script src="~/lib/signalr/dist/browser/signalr.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="https://momentjs.com/downloads/moment.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+
     <script>
         function SearchLoader() {
             const boxes = document.querySelectorAll('.dropdown-item');
@@ -90,31 +118,6 @@
             });
         }
     </script>
-
-    <div class="container">
-        <main role="main" class="pb-3">
-            <partial name="_CookieConsentPartial" />
-            @this.RenderBody()
-        </main>
-    </div>
-
-    <div aria-live="polite" aria-atomic="true" style="z-index: 11; position: fixed; min-height: 0px;">
-        <div id="notifications" style="position: fixed; bottom: 50px; right: 50px;">
-        </div>
-    </div>
-
-    <footer class="border-custom-gold border-top footer text-muted bg-dark text-center">
-        <div class="container text-chocolate">
-            &copy; @DateTime.Now.Year - Daniel @GlobalConstants.SystemName
-        </div>
-    </footer>
-
-    <script src="~/lib/signalr/dist/browser/signalr.min.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
-    <script src="~/js/site.min.js" asp-append-version="true"></script>
     @if (this.Context.User.Identity.IsAuthenticated)
     {
         <script src="~/js/notifications.js" asp-append-version="true"></script>

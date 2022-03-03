@@ -27,10 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Workshop.Data.Models\Workshop.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\Workshop.Services.Mapping\Workshop.Services.Mapping.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Courses\" />
+    <ProjectReference Include="..\..\Workshop.Common\Workshop.Common.csproj" />
   </ItemGroup>
 
 </Project>

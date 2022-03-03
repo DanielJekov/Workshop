@@ -18,18 +18,24 @@
             this.topicsService = topicsService;
         }
 
+        [Route("Course/{courseId}/Topics")]
         public IActionResult All(int courseId)
         {
             var viewModel = this.topicsService.GetAll<TopicViewModel>(courseId);
-
             return this.View(viewModel);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Create(TopicInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
             await this.topicsService.CreateAsync(input);
 
-            return this.Redirect("/");
+            return this.Redirect($"/Course/{input.CourseId}/Topics");
         }
 
         public async Task<IActionResult> Delete(int id)

@@ -62,6 +62,7 @@ function UpdateNotificationStatus() {
         datatype: 'json',
         success: function (response) {
             let result = '';
+
             for (var i = 0; i < response.length; i++) {
                 result += ` <a  class="dropdown-item" href="${response[i].link}" style="background-color: RGBA(255,208,0,0.4) !important">
                             <div class="text-green">
