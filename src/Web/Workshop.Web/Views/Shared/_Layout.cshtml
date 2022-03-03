@@ -45,16 +45,8 @@ this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 <form class="form-inline">
                     <div class="dropdown">
                         <input id="searchInput" class="form-control mr-sm-2 border-all-borders-gold text-warning  dropdown-toggle" type="search" placeholder="Search" aria-label="Search" style="background-color: transparent;" oninput="SearchLoader()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div id="result-list" class="dropdown-menu border-all-borders-gold" aria-labelledby="searchInput" style="background-color: #3f474e !important; overflow:auto; width: 300px; max-width:300px">
-                            <div id="result-list-users" class=" text-blue pl-4">
-                                Users
-                            </div>
-                            @*<div id="result-list-notifications" class=" text-blue pl-4">
-                                    Notifications
-                                </div>
-                                <div id="result-list-resourses" class=" text-blue pl-4">
-                                    Resourses
-                                </div>*@
+                        <div id="result-list" class="dropdown-menu border-all-borders-gold" aria-labelledby="searchInput" style="background-color: #3f474e !important; overflow: auto; width: 300px; max-width:300px">
+                            <div class="dropdown-item search-result text-green search-element-deletable">Try to search by given word</div>
                         </div>
                     </div>
                 </form>
@@ -90,34 +82,7 @@ this.User.IsInRole(GlobalConstants.AdministratorRoleName))
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
-
-    <script>
-        function SearchLoader() {
-            const boxes = document.querySelectorAll('.dropdown-item');
-            boxes.forEach(box => {
-                box.remove();
-            });
-            $('#result-list').dropdown('show');
-            $.ajax({
-                url: `/api/search?searchText=${$("#searchInput").val()}`,
-                type: 'get',
-                datatype: 'json',
-                success: function (response) {
-                    var counter = 0;
-                    response.forEach(function (repo) {
-                        counter += 1;
-                        var innermyspan = document.getElementById("result-list-users").innerHTML;
-                        document.getElementById("result-list-users").innerHTML = innermyspan + `<a class="dropdown-item search-result text-green" href = "#"> <img src="${repo.avatarUrl}" alt="Alternate Text"  width="20" height="20" />  ${repo.userName} </a>`;
-
-                    });
-                    if (counter === 0) {
-                        var innermyspan = document.getElementById("result-list-users").innerHTML;
-                        document.getElementById("result-list-users").innerHTML = innermyspan + `<div class="dropdown-item search-result text-green">Тhere are no results</div>`;
-                    }
-                }
-            });
-        }
-    </script>
+    <script src="~/js/search-loader.js" asp-append-version="true"></script>
     @if (this.Context.User.Identity.IsAuthenticated)
     {
         <script src="~/js/notifications.js" asp-append-version="true"></script>

@@ -14,11 +14,16 @@
     using Microsoft.Extensions.Configuration;
 
     using Workshop.Common;
+    using Workshop.Data.Common.Repositories;
+    using Workshop.Data.Models;
     using Workshop.Services.Data.Notifications;
     using Workshop.Services.Data.Roles;
     using Workshop.Services.Data.Search;
+    using Workshop.Web.ViewModels.Courses;
     using Workshop.Web.ViewModels.Notifications;
     using Workshop.Web.ViewModels.Roles;
+    using Workshop.Web.ViewModels.Search;
+    using Workshop.Web.ViewModels.Topics;
 
     [ApiController]
     [Route("api")]
@@ -26,6 +31,8 @@
     {
         private readonly IConfiguration configuration;
         private readonly INotificationsService notificationsService;
+        private readonly IDeletableEntityRepository<Course> courseRepository;
+        private readonly IDeletableEntityRepository<Topic> topicRepository;
         private readonly IRolesService roleService;
         private readonly ISearchService searchService;
         private readonly IHttpContextAccessor httpContextAccessor;
@@ -34,6 +41,8 @@
             IConfiguration configuration,
             INotificationsService notificationsService,
             ISearchService searchService,
+            IDeletableEntityRepository<Course> courseRepository,
+            IDeletableEntityRepository<Topic> topicRepository,
             IRolesService roleService,
             IHttpContextAccessor httpContextAccessor)
         {
@@ -138,9 +147,15 @@
         }
 
         [Route("search")]
-        public ICollection<Workshop.Web.ViewModels.Users.UserViewModel> Search([FromQuery] string searchText)
+        public SearchViewModel Search([FromQuery] string searchText)
         {
-            var result = this.searchService.Users<Workshop.Web.ViewModels.Users.UserViewModel>(searchText);
+            var result = new SearchViewModel
+            {
+                Users = this.searchService.Users<Workshop.Web.ViewModels.Users.UserViewModel>(searchText),
+                Courses = this.searchService.Courses<CourseViewModel>(searchText),
+                Topics = this.searchService.Topics<TopicViewModel>(searchText),
+            };
+
             return result;
         }
     }
