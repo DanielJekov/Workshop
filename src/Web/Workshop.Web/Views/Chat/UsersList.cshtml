@@ -18,7 +18,7 @@
                         @foreach (var user in Model)
                         {
                             <li class="clearfix" onclick="LoadUser('@user.Id')">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                <img src="@user.AvatarUrl" onerror="this.src ='/anonymous-avatar.jpg'">
                                 <div class="about">
                                     <div class="text-green name">@user.UserName</div>
                                     @if (user.IsActive.HasValue && user.IsActive.Value)
