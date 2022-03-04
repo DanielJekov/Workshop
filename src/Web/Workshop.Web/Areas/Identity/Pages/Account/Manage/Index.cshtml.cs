@@ -1,25 +1,39 @@
 ﻿namespace Workshop.Web.Areas.Identity.Pages.Account.Manage
 {
     using System.ComponentModel.DataAnnotations;
+    using System.IO;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
     using Workshop.Data.Models;
+    using Workshop.Services.Cloudinary;
+    using Workshop.Services.Data.HashProvider;
+    using Workshop.Services.Data.Users;
 
     public partial class IndexModel : PageModel
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly ICloudinaryService cloudinaryService;
+        private readonly IUsersService usersService;
+        private readonly IHashProvider hashProvider;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            ICloudinaryService cloudinaryService,
+            IUsersService usersService,
+            IHashProvider hashProvider)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.cloudinaryService = cloudinaryService;
+            this.usersService = usersService;
+            this.hashProvider = hashProvider;
         }
 
         public string Username { get; set; }
@@ -56,6 +70,24 @@
                 return this.Page();
             }
 
+            if (this.Input.AvatarFile != null)
+            {
+                using var ms = new MemoryStream();
+                this.Input.AvatarFile.CopyTo(ms);
+                var destinationData = ms.ToArray();
+                var currentAvatarHash = this.usersService.GetAvatarHash(user.Id);
+                var newAvatarHash = this.hashProvider.HashOfGivenByteArray(destinationData);
+                if (currentAvatarHash == newAvatarHash)
+                {
+                    this.StatusMessage = "You are trying to set same avatar as old one.";
+                    await this.LoadAsync(user);
+                    return this.RedirectToPage();
+                }
+
+                var pictureUrl = await this.cloudinaryService.UploadPictureAsync(destinationData, "Avatar", "Avatars", 250, 250);
+                await this.usersService.ChangeAvatarAsync(user.Id, pictureUrl, newAvatarHash);
+            }
+
             var phoneNumber = await this.userManager.GetPhoneNumberAsync(user);
             if (this.Input.PhoneNumber != phoneNumber)
             {
@@ -90,6 +122,9 @@
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "Avatar")]
+            public IFormFile AvatarFile { get; set; }
         }
     }
 }

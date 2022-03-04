@@ -2,6 +2,8 @@
 {
     public interface IHashProvider
     {
-        string Hash(string first, string second);
+        string HashOfGivenStrings(string first, string second);
+
+        public string HashOfGivenByteArray(byte[] input);
     }
 }

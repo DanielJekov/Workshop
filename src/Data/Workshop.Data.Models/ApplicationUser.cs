@@ -24,6 +24,8 @@ namespace Workshop.Data.Models
 
         public string AvatarUrl { get; set; }
 
+        public string AvatarHash { get; set; }
+
         // Audit info
         public DateTime CreatedOn { get; set; }
 

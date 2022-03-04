@@ -2,7 +2,7 @@
 {
     public class HashProvider : IHashProvider
     {
-        public string Hash(string first, string second)
+        public string HashOfGivenStrings(string first, string second)
         {
             if (first == second)
             {
@@ -10,6 +10,22 @@
             }
 
             return this.GetHashString(this.ConcatTwoStrings(first.ToCharArray(), second.ToCharArray()));
+        }
+
+        public string HashOfGivenByteArray(byte[] input)
+        {
+            using (var hash = System.Security.Cryptography.SHA512.Create())
+            {
+                var hashedInputBytes = hash.ComputeHash(input);
+
+                var hashedInputStringBuilder = new System.Text.StringBuilder(128);
+                foreach (var b in hashedInputBytes)
+                {
+                    hashedInputStringBuilder.Append(b.ToString("X2"));
+                }
+
+                return hashedInputStringBuilder.ToString();
+            }
         }
 
         private string ConcatTwoStrings(char[] first, char[] second)

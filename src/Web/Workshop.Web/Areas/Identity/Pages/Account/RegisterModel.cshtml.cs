@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Text.Encodings.Web;
@@ -9,6 +10,7 @@
 
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
@@ -17,6 +19,8 @@
     using Microsoft.Extensions.Logging;
 
     using Workshop.Data.Models;
+    using Workshop.Services.Cloudinary;
+    using Workshop.Services.Data.HashProvider;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
@@ -25,17 +29,23 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ILogger<RegisterModel> logger;
         private readonly IEmailSender emailSender;
+        private readonly ICloudinaryService cloudinaryService;
+        private readonly IHashProvider hashProvider;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ICloudinaryService cloudinaryService,
+            IHashProvider hashProvider)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
             this.emailSender = emailSender;
+            this.cloudinaryService = cloudinaryService;
+            this.hashProvider = hashProvider;
         }
 
         [BindProperty]
@@ -57,7 +67,18 @@
             this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (this.ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = this.Input.UserName, Email = this.Input.Email };
+                string pictureUrl = string.Empty;
+                string pictureHash = string.Empty;
+                if (this.Input.Avatar != null)
+                {
+                    using var ms = new MemoryStream();
+                    this.Input.Avatar.CopyTo(ms);
+                    var destinationData = ms.ToArray();
+                    pictureHash = this.hashProvider.HashOfGivenByteArray(destinationData);
+                    pictureUrl = await this.cloudinaryService.UploadPictureAsync(destinationData, "Avatar", "Avatars", 250, 250);
+                }
+
+                var user = new ApplicationUser { UserName = this.Input.UserName, Email = this.Input.Email, AvatarUrl = pictureUrl, AvatarHash = pictureHash };
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {
@@ -107,6 +128,9 @@
             [Required]
             [Display(Name = "Username")]
             public string UserName { get; set; }
+
+            [Display(Name = "Avatar")]
+            public IFormFile Avatar { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]

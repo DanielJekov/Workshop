@@ -51,7 +51,7 @@
             };
             await this.messagesService.CreateAsync(messageFordb);
 
-            var hashGroup = this.hashProvider.Hash(id, currUser.Id);
+            var hashGroup = this.hashProvider.HashOfGivenStrings(id, currUser.Id);
             var message = new MessageViewModel()
             {
                 SenderUserName = currUser.UserName,
@@ -81,7 +81,7 @@
         public async Task Add(string id)
         {
             var currUser = this.Context.UserIdentifier;
-            var hashGroup = this.hashProvider.Hash(id, currUser);
+            var hashGroup = this.hashProvider.HashOfGivenStrings(id, currUser);
 
             await this.Groups.AddToGroupAsync(this.Context.ConnectionId, hashGroup);
         }
