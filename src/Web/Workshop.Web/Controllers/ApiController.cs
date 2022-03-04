@@ -9,13 +9,10 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
 
     using Workshop.Common;
-    using Workshop.Data.Common.Repositories;
-    using Workshop.Data.Models;
     using Workshop.Services.Data.Notifications;
     using Workshop.Services.Data.Roles;
     using Workshop.Services.Data.Search;
@@ -31,26 +28,19 @@
     {
         private readonly IConfiguration configuration;
         private readonly INotificationsService notificationsService;
-        private readonly IDeletableEntityRepository<Course> courseRepository;
-        private readonly IDeletableEntityRepository<Topic> topicRepository;
         private readonly IRolesService roleService;
         private readonly ISearchService searchService;
-        private readonly IHttpContextAccessor httpContextAccessor;
 
         public ApiController(
             IConfiguration configuration,
             INotificationsService notificationsService,
             ISearchService searchService,
-            IDeletableEntityRepository<Course> courseRepository,
-            IDeletableEntityRepository<Topic> topicRepository,
-            IRolesService roleService,
-            IHttpContextAccessor httpContextAccessor)
+            IRolesService roleService)
         {
             this.configuration = configuration;
             this.notificationsService = notificationsService;
             this.roleService = roleService;
             this.searchService = searchService;
-            this.httpContextAccessor = httpContextAccessor;
         }
 
         [Route("weather")]
@@ -147,13 +137,25 @@
         }
 
         [Route("search")]
+        [Authorize]
         public SearchViewModel Search([FromQuery] string searchText)
         {
+            ICollection<CourseViewModel> courses = null;
+            ICollection<TopicViewModel> topics = null;
+
+            if (this.User.IsInRole("Learning"))
+            {
+                courses = this.searchService.Courses<CourseViewModel>(searchText);
+                topics = this.searchService.Topics<TopicViewModel>(searchText);
+            }
+
+            var users = this.searchService.Users<Workshop.Web.ViewModels.Users.UserViewModel>(searchText);
+
             var result = new SearchViewModel
             {
-                Users = this.searchService.Users<Workshop.Web.ViewModels.Users.UserViewModel>(searchText),
-                Courses = this.searchService.Courses<CourseViewModel>(searchText),
-                Topics = this.searchService.Topics<TopicViewModel>(searchText),
+                Users = users,
+                Courses = courses,
+                Topics = topics,
             };
 
             return result;
