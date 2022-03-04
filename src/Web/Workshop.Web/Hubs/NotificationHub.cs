@@ -41,12 +41,5 @@
 
             await base.OnDisconnectedAsync(exception);
         }
-
-        public async Task Send()
-        {
-            var message = "test";
-
-            await this.Clients.All.SendAsync("NewNotification", message);
-        }
     }
 }

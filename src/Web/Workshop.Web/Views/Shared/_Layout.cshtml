@@ -75,16 +75,17 @@ this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         </div>
     </footer>
 
-    <script src="~/lib/signalr/dist/browser/signalr.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
     <script src="https://momentjs.com/downloads/moment.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
-    <script src="~/js/search-loader.js" asp-append-version="true"></script>
+
     @if (this.Context.User.Identity.IsAuthenticated)
     {
+        <script src="~/lib/signalr/dist/browser/signalr.min.js" asp-append-version="true"></script>
+        <script src="~/js/search-loader.js" asp-append-version="true"></script>
         <script src="~/js/notifications.js" asp-append-version="true"></script>
     }
     @await this.RenderSectionAsync("Scripts", required: false)
