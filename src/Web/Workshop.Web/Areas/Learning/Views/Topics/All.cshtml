@@ -18,6 +18,7 @@
                     {
                         <li id="Topic@(counter)" class="text-white text-decoration-none" onclick="ShowTopic(@(counter))">
                             <input type="hidden" id="note@(counter)" name="note@(counter)" value="@topic.Note" />
+                            <input type="hidden" id="topic@(counter)" name="topic@(counter)" value="@topic.Id" />
                             <input type="hidden" id="youtubeUrl@(counter)" name="youtubeUrl@(counter)" value="@topic.YoutubeLink" />
                             <div id="name@(counter)" class="card-header border-gold rounded-top mt-3 pb-2 text-gold h5" style="background-color: goldenrod; color: floralwhite">
                                 @topic.Name
@@ -39,7 +40,7 @@
 @section Scripts{
 
     <script src="~/js/resourses-loader.js" asp-append-version="true"></script>
-    <script src="/lib/tinymce/tinymce.min.js" type="text/javascript" asp-append-version="true"></script>
+    @*<script src="/lib/tinymce/tinymce.min.js" type="text/javascript" asp-append-version="true"></script>
 
     <script type="text/javascript">
         tinymce.init({
@@ -48,5 +49,5 @@
                 "image paste table link code media"
             ]
         });
-    </script>
+    </script>*@
 }

@@ -12,5 +12,7 @@
         Task DeleteAsync(int id);
 
         IEnumerable<T> GetAll<T>(int courseId);
+
+        public Task ChangeNoteAsync(int topicId, string noteValue);
     }
 }

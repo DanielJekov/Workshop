@@ -22,14 +22,20 @@ function RemoveTopic(index) {
 
 function ShowNote(index) {
     var notes = $("#note" + index).val();
-    $(` <div id="Note` + index + `" class="card-body mb-3 rounded-bottom rounded-top" style="background-color: burlywood">
+    $(` <div id="Note${index}" class="card-body mb-3 rounded-bottom rounded-top" style="background-color: #2392a8">
     <label class="text-center font-weight-bold">Notes</label>
-    <div class="container">
-        <div>${notes}</div>
-    </div>
+      <textarea id="NoteValue${index}" class="container-fluid" rows="4" style="background-color: transparent">${notes}</textarea>
+<button onclick="ChangeNoteValues('${index}')" class="btn btn-warning">Save</button>
 </div>`).insertAfter('#Info' + index).hide().show('fast');
     $('#ShowNote' + index).attr("onclick", "RemoveNote("+ index +")");
 }
+
+function ChangeNoteValues(index) {
+    var topic = $("#topic" + index).val();
+    var note = $("#NoteValue" + index).val();
+    $.get(`/api/change-note?topicId=${topic}&noteValue=${note}`);
+}
+
 function RemoveNote(index) {
     $('#Note' + index).remove('#Note' + index);
     $('#ShowNote' + index).attr("onclick", "ShowNote(" + index + ")");
@@ -44,6 +50,7 @@ function ShowVideoResourse(index) {
 
     $('html,body').animate({ scrollTop: $("#" + 'VideoResourse' + index).offset().top }, 'slow'); // scrolling to fragment with id
 }
+
 function RemoveVideoResourse(index) {
     $('#VideoResourse' + index).remove('#VideoResourse' + index);
     $('#ShowVideoResourse' + index).attr("onclick", "ShowVideoResourse(" + index + ")");

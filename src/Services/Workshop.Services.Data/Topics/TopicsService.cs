@@ -47,5 +47,15 @@
                       .To<T>()
                       .ToList();
         }
+
+        public async Task ChangeNoteAsync(int topicId, string noteValue)
+        {
+            this.topicsRepository
+                .All()
+                .Where(x => x.Id == topicId)
+                .FirstOrDefault()
+                .Note = noteValue;
+            await this.topicsRepository.SaveChangesAsync();
+        }
     }
 }

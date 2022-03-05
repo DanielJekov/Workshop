@@ -16,6 +16,7 @@
     using Workshop.Services.Data.Notifications;
     using Workshop.Services.Data.Roles;
     using Workshop.Services.Data.Search;
+    using Workshop.Services.Data.Topics;
     using Workshop.Web.ViewModels.Courses;
     using Workshop.Web.ViewModels.Notifications;
     using Workshop.Web.ViewModels.Roles;
@@ -30,17 +31,20 @@
         private readonly INotificationsService notificationsService;
         private readonly IRolesService roleService;
         private readonly ISearchService searchService;
+        private readonly ITopicsService topicsService;
 
         public ApiController(
             IConfiguration configuration,
             INotificationsService notificationsService,
             ISearchService searchService,
-            IRolesService roleService)
+            IRolesService roleService,
+            ITopicsService topicsService)
         {
             this.configuration = configuration;
             this.notificationsService = notificationsService;
             this.roleService = roleService;
             this.searchService = searchService;
+            this.topicsService = topicsService;
         }
 
         [Route("weather")]
@@ -159,6 +163,12 @@
             };
 
             return result;
+        }
+
+        [Route("change-note")]
+        public async Task ChangeNote([FromQuery] int topicId, string noteValue)
+        {
+            await this.topicsService.ChangeNoteAsync(topicId, noteValue);
         }
     }
 }
