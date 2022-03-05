@@ -42,14 +42,17 @@ this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         }
                     </ul>
                 </div>
-                <form class="form-inline">
-                    <div class="dropdown">
-                        <input id="searchInput" class="form-control mr-sm-2 border-all-borders-gold text-warning  dropdown-toggle" type="search" placeholder="Search" aria-label="Search" style="background-color: transparent;" oninput="SearchLoader()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div id="result-list" class="dropdown-menu border-all-borders-gold" aria-labelledby="searchInput" style="background-color: #3f474e !important; overflow: auto; width: 300px; max-width:300px">
-                            <div class="dropdown-item search-result text-green search-element-deletable">Try to search by given word</div>
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    <form class="form-inline">
+                        <div class="dropdown">
+                            <input id="searchInput" class="form-control mr-sm-2 border-all-borders-gold text-warning  dropdown-toggle" type="search" placeholder="Search" aria-label="Search" style="background-color: transparent;" oninput="SearchLoader()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div id="result-list" class="dropdown-menu border-all-borders-gold" aria-labelledby="searchInput" style="background-color: #3f474e !important; overflow: auto; width: 300px; max-width:300px">
+                                <div class="dropdown-item search-result text-green search-element-deletable">Try to search by given word</div>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                }
 
                 <partial name="_LoginPartial" />
             </div>
