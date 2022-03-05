@@ -44,11 +44,15 @@ function RemoveNote(index) {
 function ShowVideoResourse(index) {
     var youtubeUrl = $("#youtubeUrl" + index).val();
     $(`<div id="VideoResourse` + index + `" class="text-center">
-    <iframe width="100%" height="315" src="${youtubeUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="100%" height="450px" src="${youtubeUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>`).insertAfter('#Info' + index).hide().show('slow');
     $('#ShowVideoResourse' + index).attr("onclick", "RemoveVideoResourse("+ index + ")");
 
     $('html,body').animate({ scrollTop: $("#" + 'VideoResourse' + index).offset().top }, 'slow'); // scrolling to fragment with id
+}
+
+function MakeVideoFullScreen() {
+
 }
 
 function RemoveVideoResourse(index) {
