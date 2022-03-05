@@ -166,6 +166,7 @@
         }
 
         [Route("change-note")]
+        [Authorize(Roles = "Learning")]
         public async Task ChangeNote([FromQuery] int topicId, string noteValue)
         {
             await this.topicsService.ChangeNoteAsync(topicId, noteValue);
