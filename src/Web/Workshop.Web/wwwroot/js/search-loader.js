@@ -1,14 +1,10 @@
-﻿
-$(document).ready(function () {
-    $(window).keydown(function (event) {
-        if (event.keyCode == 13) {
-            event.preventDefault();
-            SearchLoader();
-            return false;
-        }
-    });
+﻿$("#searchInput").keypress(function (event) {
+    if (event.keyCode == 13) {
+        event.preventDefault();
+        SearchLoader();
+        return false;
+    }
 });
-
 
 function SearchLoader() {
     const boxes = document.querySelectorAll('.search-element-deletable');
