@@ -82,7 +82,7 @@ function UpdateNotificationStatus() {
 
 function UnmarkUnreadNotifications() {
     var items = document.getElementsByClassName('dropdown-item');
-    var count = $("#newNotificationsCount").val();
+    var count = $("#newNotificationsCount").val() + 1;
 
     for (var i = 0; i < count; i++) {
         items[i].removeAttribute("style");
