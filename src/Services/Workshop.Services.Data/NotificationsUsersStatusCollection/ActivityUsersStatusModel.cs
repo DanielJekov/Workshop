@@ -1,8 +1,8 @@
-﻿namespace Workshop.Services.Data.NotificationsUsersStatusCollection
+﻿namespace Workshop.Services.Data.ActivityUsersStatusCollection
 {
     using System;
 
-    public class NotificationHubUsersStatusModel
+    public class ActivityUsersStatusModel
     {
         public string UserId { get; set; }
 

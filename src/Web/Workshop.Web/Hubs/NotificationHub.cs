@@ -7,14 +7,14 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;
 
-    using Workshop.Services.Data.NotificationsUsersStatusCollection;
+    using Workshop.Services.Data.ActivityUsersStatusCollection;
 
     [Authorize]
     public class NotificationHub : Hub
     {
-        private INotificationUsersStatusCollection usersStatusCollection;
+        private IActivityUsersStatusCollection usersStatusCollection;
 
-        public NotificationHub(INotificationUsersStatusCollection usersStatusCollection)
+        public NotificationHub(IActivityUsersStatusCollection usersStatusCollection)
         {
             this.usersStatusCollection = usersStatusCollection;
         }

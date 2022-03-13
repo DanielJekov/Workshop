@@ -7,8 +7,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using Workshop.Services.Data.ActivityUsersStatusCollection;
     using Workshop.Services.Data.Messages;
-    using Workshop.Services.Data.NotificationsUsersStatusCollection;
     using Workshop.Services.Data.Users;
     using Workshop.Web.ViewModels.Chat;
     using Workshop.Web.ViewModels.Users;
@@ -16,13 +16,13 @@
     [Authorize]
     public class ChatController : BaseController
     {
-        private INotificationUsersStatusCollection usersStatusCollection;
+        private IActivityUsersStatusCollection usersStatusCollection;
         private IUsersService usersService;
         private IMessagesService messagesService;
 
         public ChatController(
             IUsersService usersService,
-            INotificationUsersStatusCollection usersStatusCollection,
+            IActivityUsersStatusCollection usersStatusCollection,
             IMessagesService messagesService)
         {
             this.usersStatusCollection = usersStatusCollection;

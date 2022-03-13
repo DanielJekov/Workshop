@@ -1,10 +1,10 @@
-﻿namespace Workshop.Services.Data.NotificationsUsersStatusCollection
+﻿namespace Workshop.Services.Data.ActivityUsersStatusCollection
 {
     using System.Collections.ObjectModel;
 
-    public interface INotificationUsersStatusCollection
+    public interface IActivityUsersStatusCollection
     {
-        ReadOnlyCollection<NotificationHubUsersStatusModel> UsersCollection { get; }
+        ReadOnlyCollection<ActivityUsersStatusModel> UsersCollection { get; }
 
         void Add(string userName);
 

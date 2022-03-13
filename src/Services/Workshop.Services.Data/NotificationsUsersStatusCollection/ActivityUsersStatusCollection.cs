@@ -1,20 +1,20 @@
-﻿namespace Workshop.Services.Data.NotificationsUsersStatusCollection
+﻿namespace Workshop.Services.Data.ActivityUsersStatusCollection
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
 
-    public class NotificationUsersStatusCollection : INotificationUsersStatusCollection
+    public class ActivityUsersStatusCollection : IActivityUsersStatusCollection
     {
-        private List<NotificationHubUsersStatusModel> users = new List<NotificationHubUsersStatusModel>();
+        private List<ActivityUsersStatusModel> users = new List<ActivityUsersStatusModel>();
 
-        public ReadOnlyCollection<NotificationHubUsersStatusModel> UsersCollection
-            => new ReadOnlyCollection<NotificationHubUsersStatusModel>(this.users);
+        public ReadOnlyCollection<ActivityUsersStatusModel> UsersCollection
+            => new ReadOnlyCollection<ActivityUsersStatusModel>(this.users);
 
         public void Add(string userId)
         {
-            this.users.Add(new NotificationHubUsersStatusModel { UserId = userId });
+            this.users.Add(new ActivityUsersStatusModel { UserId = userId });
             this.Active(userId);
         }
 

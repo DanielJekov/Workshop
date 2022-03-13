@@ -20,11 +20,11 @@
     using Workshop.Data.Repositories;
     using Workshop.Data.Seeding;
     using Workshop.Services.Cloudinary;
+    using Workshop.Services.Data.ActivityUsersStatusCollection;
     using Workshop.Services.Data.Courses;
     using Workshop.Services.Data.HashProvider;
     using Workshop.Services.Data.Messages;
     using Workshop.Services.Data.Notifications;
-    using Workshop.Services.Data.NotificationsUsersStatusCollection;
     using Workshop.Services.Data.Roles;
     using Workshop.Services.Data.Search;
     using Workshop.Services.Data.Topics;
@@ -86,7 +86,7 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddSingleton<INotificationUsersStatusCollection, NotificationUsersStatusCollection>();
+            services.AddSingleton<IActivityUsersStatusCollection, ActivityUsersStatusCollection>();
 
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
