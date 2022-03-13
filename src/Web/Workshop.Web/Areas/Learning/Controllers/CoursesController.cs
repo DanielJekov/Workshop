@@ -25,9 +25,14 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string name)
+        public async Task<IActionResult> Create(CourseInputModel input)
         {
-            await this.coursesService.CreateAsync(name);
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            await this.coursesService.CreateAsync(input.Name);
 
             return this.RedirectToAction("All", "Courses", new { area = "Learning" });
         }
