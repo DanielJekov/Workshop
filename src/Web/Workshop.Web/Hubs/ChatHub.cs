@@ -11,8 +11,8 @@
     using Workshop.Services.Data.HashProvider;
     using Workshop.Services.Data.Messages;
     using Workshop.Services.Data.Notifications;
-    using Workshop.Services.InputModels.Messages;
-    using Workshop.Services.InputModels.Notifications;
+    using Workshop.Services.InputDtos.Messages;
+    using Workshop.Services.InputDtos.Notifications;
     using Workshop.Web.ViewModels.Chat;
     using Workshop.Web.ViewModels.Notifications;
 
@@ -43,7 +43,7 @@
         {
             var currUser = await this.userManager.GetUserAsync(this.Context.User);
 
-            var messageFordb = new MessageCreateInputModel()
+            var messageFordb = new MessageCreateInputDto()
             {
                 Content = messageContent,
                 SenderId = currUser.Id,
@@ -68,7 +68,7 @@
                 Description = messageContent,
                 Link = $"/Chat/Private/{currUser.Id}",
             };
-            var notif = new NotificationCreateInputModel()
+            var notif = new NotificationCreateInputDto()
             {
                 SenderId = currUser.Id,
                 ReceiverId = id,

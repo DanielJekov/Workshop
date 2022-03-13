@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Workshop.Services.Mapping\Workshop.Services.Mapping.csproj" />
+  </ItemGroup>
+
 </Project>

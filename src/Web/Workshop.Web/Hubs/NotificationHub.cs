@@ -1,6 +1,7 @@
 ﻿namespace Workshop.Web.Hubs
 {
     using System;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -20,15 +21,15 @@
 
         public override async Task OnConnectedAsync()
         {
-            var currUserName = this.Context.User.Identity.Name;
-            if (!this.usersStatusCollection.IsInCollection(currUserName))
+            var currUserId = this.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!this.usersStatusCollection.IsInCollection(currUserId))
             {
-                this.usersStatusCollection.Add(currUserName);
-                this.usersStatusCollection.Active(currUserName);
+                this.usersStatusCollection.Add(currUserId);
+                this.usersStatusCollection.Active(currUserId);
             }
             else
             {
-                this.usersStatusCollection.Active(currUserName);
+                this.usersStatusCollection.Active(currUserId);
             }
 
             await base.OnConnectedAsync();
@@ -36,8 +37,8 @@
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            var currUserName = this.Context.User.Identity.Name;
-            this.usersStatusCollection.NonActive(currUserName);
+            var currUserId = this.Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            this.usersStatusCollection.NonActive(currUserId);
 
             await base.OnDisconnectedAsync(exception);
         }

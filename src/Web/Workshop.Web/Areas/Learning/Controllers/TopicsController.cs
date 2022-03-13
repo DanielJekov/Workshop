@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Workshop.Services.Data.Topics;
-    using Workshop.Services.InputModels.Topics;
+    using Workshop.Services.InputDtos.Topics;
     using Workshop.Web.Areas.Resourses.Controllers;
     using Workshop.Web.ViewModels.Topics;
 
@@ -33,7 +33,15 @@
                 return this.BadRequest();
             }
 
-            await this.topicsService.CreateAsync(input);
+            var inputDto = new TopicInputDto()
+            {
+                CourseId = input.CourseId,
+                Name = input.Name,
+                Note = input.Note,
+                YoutubeLink = input.YoutubeLink,
+            };
+
+            await this.topicsService.CreateAsync(inputDto);
 
             return this.Redirect($"/Course/{input.CourseId}/Topics");
         }

@@ -3,11 +3,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using Workshop.Services.InputModels.Topics;
+    using Workshop.Services.InputDtos.Topics;
 
     public interface ITopicsService
     {
-        Task CreateAsync(TopicInputModel input);
+        Task CreateAsync(TopicInputDto input);
 
         Task DeleteAsync(int id);
 

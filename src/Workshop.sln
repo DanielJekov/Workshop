@@ -39,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workshop.Web.Tests", "Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workshop.Web.ViewModels", "Web\Workshop.Web.ViewModels\Workshop.Web.ViewModels.csproj", "{13B7AACB-9C85-4409-8D4B-95A67D0DFFF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshop.Services.InputModels", "Services\Workshop.Services.InputModels\Workshop.Services.InputModels.csproj", "{70E11BAF-C982-4AA4-9943-6B8DA43F2816}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workshop.Services.InputDtos", "Services\Workshop.Services.InputModels\Workshop.Services.InputDtos.csproj", "{70E11BAF-C982-4AA4-9943-6B8DA43F2816}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

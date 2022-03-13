@@ -30,6 +30,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-chocolate font-weight-bold" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-chocolate font-weight-bold" asp-area="" asp-controller="Chat" asp-action="Video">Video Chat</a>
+                        </li>
                         @if (this.Context.User.Identity.IsAuthenticated &&
 this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {

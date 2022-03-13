@@ -12,36 +12,36 @@
         public ReadOnlyCollection<NotificationHubUsersStatusModel> UsersCollection
             => new ReadOnlyCollection<NotificationHubUsersStatusModel>(this.users);
 
-        public void Add(string userName)
+        public void Add(string userId)
         {
-            this.users.Add(new NotificationHubUsersStatusModel { UserName = userName });
-            this.Active(userName);
+            this.users.Add(new NotificationHubUsersStatusModel { UserId = userId });
+            this.Active(userId);
         }
 
-        public void Remove(string userName)
+        public void Remove(string userId)
         {
-            var userToRemove = this.users.FirstOrDefault(x => x.UserName == userName);
+            var userToRemove = this.users.FirstOrDefault(x => x.UserId == userId);
             this.users.Remove(userToRemove);
         }
 
-        public void Active(string userName)
+        public void Active(string userId)
         {
-            var user = this.users.FirstOrDefault(x => x.UserName == userName);
+            var user = this.users.FirstOrDefault(x => x.UserId == userId);
             user.IsActive = true;
             user.LastActiveOn = DateTime.UtcNow;
         }
 
-        public void NonActive(string userName)
+        public void NonActive(string userId)
         {
-            var user = this.users.FirstOrDefault(x => x.UserName == userName);
+            var user = this.users.FirstOrDefault(x => x.UserId == userId);
             user.IsActive = false;
             user.LastActiveOn = DateTime.UtcNow;
         }
 
-        public bool IsActive(string userName)
-        => this.users.FirstOrDefault(x => x.UserName == userName).IsActive;
+        public bool IsActive(string userId)
+        => this.users.FirstOrDefault(x => x.UserId == userId).IsActive;
 
-        public bool IsInCollection(string userName)
-        => this.users.FirstOrDefault(x => x.UserName == userName) != null ? true : false;
+        public bool IsInCollection(string userId)
+        => this.users.FirstOrDefault(x => x.UserId == userId) != null ? true : false;
     }
 }

@@ -3,11 +3,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using Workshop.Services.InputModels.Notifications;
+    using Workshop.Services.InputDtos.Notifications;
 
     public interface INotificationsService
     {
-        Task CreateAsync(NotificationCreateInputModel input);
+        Task CreateAsync(NotificationCreateInputDto input);
 
         IEnumerable<T> GetAllUnseen<T>(string userId);
 

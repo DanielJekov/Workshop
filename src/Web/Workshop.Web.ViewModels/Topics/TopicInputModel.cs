@@ -1,4 +1,4 @@
-﻿namespace Workshop.Services.InputModels.Topics
+﻿namespace Workshop.Web.ViewModels.Topics
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -14,12 +14,13 @@
 
         public string Note { get; set; }
 
-        public string YoutubeLink 
+        public string YoutubeLink
         {
-            get 
+            get
             {
                 return this.youtubeLink;
             }
+
             set
             {
                 if (!string.IsNullOrEmpty(value))

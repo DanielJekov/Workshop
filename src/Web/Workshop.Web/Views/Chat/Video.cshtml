@@ -1,0 +1,33 @@
+﻿
+@{ ViewData["Title"] = "Video"; }
+}
+<device type="media" onchange="update(this.data)"></device>
+<video autoplay width="250" height="200"></video>
+<script>
+    function update(stream) {
+        document.querySelector('video').src = stream.url;
+    }
+
+    function hasGetUserMedia() {
+        return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+    }
+    if (hasGetUserMedia()) {
+        // Good to go!
+    }
+    else {
+        alert("getUserMedia() is not supported by your browser");
+    }
+</script>
+
+<script>
+    const constraints = {
+        video: true,
+    };
+
+    const video = document.querySelector("video");
+
+    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+        video.srcObject = stream;
+    });
+</script>
+

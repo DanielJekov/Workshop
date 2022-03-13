@@ -6,7 +6,7 @@
 
     using Workshop.Data.Common.Repositories;
     using Workshop.Data.Models;
-    using Workshop.Services.InputModels.Topics;
+    using Workshop.Services.InputDtos.Topics;
     using Workshop.Services.Mapping;
 
     public class TopicsService : ITopicsService
@@ -18,7 +18,7 @@
             this.topicsRepository = topicsRepository;
         }
 
-        public async Task CreateAsync(TopicInputModel input)
+        public async Task CreateAsync(TopicInputDto input)
         {
             var topic = new Topic()
             {

@@ -11,13 +11,6 @@ connection.start().catch(function (err) {
     return console.error(err.toString());
 });
 
-var sender = document.getElementById("messageInput");
-sender.addEventListener("keydown", function (e) {
-    if (e.code === "Enter" || e.which == 13) {
-        Sender();
-    }
-});
-
 setTimeout(function () { Join(); }, 1000);
 
 function Join() {
@@ -26,6 +19,13 @@ function Join() {
     $("#ToUserWithId").val(id);
     connection.invoke("Add", id);
 };
+
+var sender = document.getElementById("messageInput");
+sender.addEventListener("keydown", function (e) {
+    if (e.code === "Enter" || e.which == 13) {
+        Sender();
+    }
+});
 
 connection.on("NewMessage",
     function (message) {

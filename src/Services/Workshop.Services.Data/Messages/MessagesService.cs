@@ -6,7 +6,7 @@
 
     using Workshop.Data.Common.Repositories;
     using Workshop.Data.Models;
-    using Workshop.Services.InputModels.Messages;
+    using Workshop.Services.InputDtos.Messages;
     using Workshop.Services.Mapping;
 
     public class MessagesService : IMessagesService
@@ -18,7 +18,7 @@
             this.messagesRepository = messagesRepository;
         }
 
-        public async Task CreateAsync(MessageCreateInputModel input)
+        public async Task CreateAsync(MessageCreateInputDto input)
         {
             var message = new Message()
             {

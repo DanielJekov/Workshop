@@ -1,8 +1,8 @@
-﻿namespace Workshop.Services.InputModels.Notifications
+﻿namespace Workshop.Services.InputDtos.Notifications
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class NotificationCreateInputModel
+    public class NotificationCreateInputDto
     {
 
         public string SenderId { get; set; }

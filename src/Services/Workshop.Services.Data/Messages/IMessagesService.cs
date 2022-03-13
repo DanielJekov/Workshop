@@ -3,11 +3,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using Workshop.Services.InputModels.Messages;
+    using Workshop.Services.InputDtos.Messages;
 
     public interface IMessagesService
     {
-        Task CreateAsync(MessageCreateInputModel input);
+        Task CreateAsync(MessageCreateInputDto input);
 
         IEnumerable<T> GetAll<T>(string currentUserId, string otherUserId);
     }

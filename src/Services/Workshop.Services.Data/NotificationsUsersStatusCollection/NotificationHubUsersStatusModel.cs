@@ -1,10 +1,10 @@
-﻿namespace Workshop.Services.Data
+﻿namespace Workshop.Services.Data.NotificationsUsersStatusCollection
 {
     using System;
 
     public class NotificationHubUsersStatusModel
     {
-        public string UserName { get; set; }
+        public string UserId { get; set; }
 
         public bool IsActive { get; set; }
 

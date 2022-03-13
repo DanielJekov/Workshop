@@ -22,7 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Workshop.Data.Common\Workshop.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\Workshop.Data.Models\Workshop.Data.Models.csproj" />
-    <ProjectReference Include="..\Workshop.Services.InputModels\Workshop.Services.InputModels.csproj" />
+    <ProjectReference Include="..\Workshop.Services.InputModels\Workshop.Services.InputDtos.csproj" />
     <ProjectReference Include="..\Workshop.Services.Mapping\Workshop.Services.Mapping.csproj" />
   </ItemGroup>
 

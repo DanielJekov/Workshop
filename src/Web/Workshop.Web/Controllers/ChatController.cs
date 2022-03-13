@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Security.Claims;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -37,7 +38,7 @@
             foreach (var user in usersModel)
             {
                 var userActivityInfo = this.usersStatusCollection.UsersCollection
-                    .FirstOrDefault(u => u.UserName == user.UserName);
+                    .FirstOrDefault(u => u.UserId == user.Id);
                 if (userActivityInfo == null)
                 {
                     continue;
@@ -59,6 +60,13 @@
             return this.View(viewModel);
         }
 
+        public async Task<IActionResult> Video()
+        {
+            await Task.Delay(1); // Remove it
+
+            return this.View();
+        }
+
         public IActionResult UsersList()
         {
             var usersModel = this.usersService.GetAll<UserViewModel>().ToList();
@@ -66,7 +74,7 @@
             foreach (var user in usersModel)
             {
                 var userActivityInfo = this.usersStatusCollection.UsersCollection
-                    .FirstOrDefault(u => u.UserName == user.UserName);
+                    .FirstOrDefault(u => u.UserId == user.Id);
 
                 if (userActivityInfo == null)
                 {
