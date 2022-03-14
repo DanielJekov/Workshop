@@ -165,9 +165,9 @@
             return result;
         }
 
-        [Route("change-note")]
+        [HttpPost("change-note")]
         [Authorize(Roles = "Learning")]
-        public async Task ChangeNote([FromQuery] int topicId, string noteValue)
+        public async Task ChangeNote([FromForm] int topicId, [FromForm] string noteValue)
         {
             await this.topicsService.ChangeNoteAsync(topicId, noteValue);
         }

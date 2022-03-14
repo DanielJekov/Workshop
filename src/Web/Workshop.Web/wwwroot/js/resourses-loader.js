@@ -33,7 +33,8 @@ function ShowNote(index) {
 function ChangeNoteValues(index) {
     var topic = $("#topic" + index).val();
     var note = $("#NoteValue" + index).val();
-    $.get(`/api/change-note?topicId=${topic}&noteValue=${note}`);
+    var token = $("[name='__RequestVerificationToken']").val();
+    $.post("/api/change-note", { __RequestVerificationToken: token, topicId: topic, noteValue: note });
 }
 
 function RemoveNote(index) {
