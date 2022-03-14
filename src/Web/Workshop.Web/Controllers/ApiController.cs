@@ -142,6 +142,7 @@
 
         [Route("search")]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public SearchViewModel Search([FromQuery] string searchText)
         {
             ICollection<CourseViewModel> courses = null;

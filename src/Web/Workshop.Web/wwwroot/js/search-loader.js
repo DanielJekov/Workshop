@@ -12,12 +12,13 @@ function SearchLoader() {
         box.remove();
     });
     $('#result-list').dropdown('show');
+    var token = $("[name='__RequestVerificationToken']").val();
     $.ajax({
         url: `/api/search?searchText=${$("#searchInput").val()}`,
         type: 'get',
         datatype: 'json',
+        headers: { 'X-CSRF-TOKEN-HEADERNAME': token },
         success: function (response) {
-
             var counter = 0;
             if (response.users.length !== 0) {
                 counter++;

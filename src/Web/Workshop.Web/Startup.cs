@@ -68,6 +68,11 @@
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN-HEADERNAME";
+            });
+
             services.AddControllersWithViews(
                 options =>
                     {
