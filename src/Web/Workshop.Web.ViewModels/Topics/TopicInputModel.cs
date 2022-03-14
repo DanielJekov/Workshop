@@ -16,6 +16,7 @@
         public string Note { get; set; }
 
         [Url]
+        [Display(Name = "YouTube Link")]
         public string YoutubeLink
         {
             get
