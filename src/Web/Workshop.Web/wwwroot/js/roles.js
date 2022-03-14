@@ -26,26 +26,32 @@ function LoadUsersInGivenRole(roleId) {
 
 function RemoveUserFromGivenRole(userId) {
     var roleId = $("#modalRoleId").val();
+    var token = $("[name='__RequestVerificationToken']").val();
     $.ajax({
-        url: `/api/remove-user-from-given-role?roleId=${roleId}&userId=${userId}`,
-        type: 'get',
-        datatype: 'json',
-        success: function (response) {
-            $("#" + userId).remove();
+        url: `/api/remove-user-from-given-role`,
+        type: 'post',
+        data: {
+            __RequestVerificationToken: token,
+            RoleId: roleId,
+            UserId: userId,
         }
     });
+    $("#" + userId).remove();
 }
 
 function AddUserToRole(userId) {
     var roleId = $("#modalRoleId").val();
+    var token = $("[name='__RequestVerificationToken']").val();
     $.ajax({
-        url: `/api/add-user-to-role?roleId=${roleId}&userId=${userId}`,
-        type: 'get',
-        datatype: 'json',
-        success: function (response) {
-            $("#" + userId).remove();
+        url: `/api/add-user-to-role`,
+        type: 'post',
+        data: {
+            __RequestVerificationToken: token,
+            RoleId: roleId,
+            UserId: userId,
         }
     });
+    $("#" + userId).remove();
 }
 
 function LoadUsersOutOfGivenRole(roleId) {

@@ -119,8 +119,8 @@
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        [Route("remove-user-from-given-role")]
-        public async Task RemoveUserFromRole(string roleId, string userId)
+        [HttpPost("remove-user-from-given-role")]
+        public async Task RemoveUserFromRole([FromForm] string roleId, [FromForm] string userId)
         {
             await this.roleService.RemoveUserFromRoleAsync(roleId, userId);
         }
@@ -134,8 +134,8 @@
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        [Route("add-user-to-role")]
-        public async Task AddUserToRole(string roleId, string userId)
+        [HttpPost("add-user-to-role")]
+        public async Task AddUserToRole([FromForm] string roleId, [FromForm] string userId)
         {
             await this.roleService.AddUserToRoleAsync(roleId, userId);
         }
