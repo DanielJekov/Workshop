@@ -1,0 +1,128 @@
+﻿@model ICollection<Workshop.Web.ViewModels.Notes.NoteViewModel>
+@{
+    ViewData["Title"] = "Notes";
+}
+
+<div class="row note">
+    <div class="col-12">
+        <div class="ml-4 mb-4">
+            <span class="btn btn-warning mb-2">Create</span>
+            <span class="btn btn-primary mb-2">Options</span>
+            <span class="btn btn-danger mb-2">Delete</span>
+        </div>
+        
+        @foreach (var note in Model)
+        {
+            <div id="@note.Id" onclick="LoadNote('@note.Id')" class="btn col-1 mb-4 text-center note">
+                <i class="fa-solid fa-file-lines fa-3x text-purple"></i>
+                <div class="text-green">@note.Name </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Note Modal Show -->
+<div id="noteModal">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color: cadetblue">
+                <div class="modal-header">
+                    <h5 id="noteName" class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <textarea id="NoteContent" rows="18" style="background-color: transparent"></textarea>
+                <input id="NoteId" type="hidden" value="" />
+                @Html.AntiForgeryToken()
+                <div class="text-center">
+                    <span id="noteSaveChanges" class="btn btn-warning text-center mb-4 text-right">Save changes</span>
+                    <span id="noteSaveChangesAndExit" class="btn btn-danger text-center mb-4 text-right">Save changes and exit</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="noteModalCreate">
+    <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog  modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Create Note</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <label>Name</label>
+                <input class="form-control" type="text" name="name" value="" />
+                <label>Content</label>
+                <textarea rows="8"> </textarea>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).on("contextmenu", "html", function (e) {
+            $('#exampleModalCenter1').modal('show');
+            return false;
+        });
+
+        $("#noteModal").on('hidden.bs.modal', function () {
+            $('#NoteContent').html("");
+            $('#noteName').html("");
+        });
+
+        function LoadNote(id) {
+            $.ajax({
+                url: `/api/note/${id}`,
+                type: 'get',
+                datatype: 'json',
+                success: function (response) {
+                    $("#NoteId").val(response.id);
+                    $("#noteName").html(response.name);
+                    $("#NoteContent").html(response.content);
+                }
+            });
+            $('#exampleModalCenter').modal('show');
+        }
+
+        function NoteSaveChanges() {
+            var token = $("[name='__RequestVerificationToken']").val();
+            id = $("#NoteId").val();
+            name = $("#noteName").html();
+            content = $("#NoteContent").val();
+
+            $.ajax({
+                url: `/api/note-update`,
+                type: 'post',
+                data: {
+                    __RequestVerificationToken: token,
+                    Id: id,
+                    Name: name,
+                    Content: content,
+                }
+            });
+        }
+
+        function ExitModal() {
+            $("#noteModal .close").click()
+        }
+
+        $("#noteSaveChanges").click(function () {
+            NoteSaveChanges();
+        });
+
+        $("#noteSaveChangesAndExit").click(function () {
+            NoteSaveChanges();
+            ExitModal();
+        });
+    </script>
+}

@@ -1,0 +1,13 @@
+﻿@model Workshop.Web.ViewModels.Notes.NoteCreateInputModel
+@{
+    ViewData["Title"] = "Create Note";
+}
+<form class="form-group" asp-area="Learning" asp-controller="Notes" asp-action="Create" method="post">
+    <label asp-for="Name"> </label>
+    <input class="form-control" asp-for="Name"/>
+    <span asp-validation-for="Name"></span>
+    <label asp-for="Content"> </label>
+    <input class="form-control" asp-for="Content"/>
+    <span asp-validation-for="Content"></span>
+    <button class="btn btn-success" type="submit">Submit</button>
+</form>

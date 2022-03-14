@@ -24,6 +24,7 @@
     using Workshop.Services.Data.Courses;
     using Workshop.Services.Data.HashProvider;
     using Workshop.Services.Data.Messages;
+    using Workshop.Services.Data.Notes;
     using Workshop.Services.Data.Notifications;
     using Workshop.Services.Data.Roles;
     using Workshop.Services.Data.Search;
@@ -104,6 +105,7 @@
             services.AddTransient<ICoursesService, CoursesService>();
             services.AddTransient<ITopicsService, TopicsService>();
             services.AddTransient<ISearchService, SearchService>();
+            services.AddTransient<INotesService, NotesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

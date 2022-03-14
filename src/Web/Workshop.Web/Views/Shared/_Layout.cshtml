@@ -42,6 +42,12 @@ this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                             <li class="nav-item">
                                 <a class="nav-link text-chocolate font-weight-bold" asp-area="Administration" asp-controller="Roles" asp-action="All">Roles</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-chocolate font-weight-bold" asp-area="Learning" asp-controller="Notes" asp-action="All">Notes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-chocolate font-weight-bold" asp-area="Learning" asp-controller="Notes" asp-action="Create">Create Note</a>
+                            </li>
                         }
                     </ul>
                 </div>
@@ -50,7 +56,7 @@ this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                     <form class="form-inline" method="post">
                         <div class="dropdown">
                             <input id="searchInput" class="form-control mr-sm-2 border-all-borders-gold text-warning  dropdown-toggle" type="search" placeholder="Search" aria-label="Search" style="background-color: transparent;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span id="searchButton" class="btn btn-outline-success my-2 my-sm-0"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <i id="searchButton" class="btn text-chocolate fa-solid fa-magnifying-glass"></i>
                             <div id="result-list" class="dropdown-menu border-all-borders-gold" aria-labelledby="searchInput" style="background-color: #3f474e !important; overflow: auto; width: 300px; max-width:300px">
                                 <div class="dropdown-item search-result text-green search-element-deletable">Try to search by given word</div>
                             </div>

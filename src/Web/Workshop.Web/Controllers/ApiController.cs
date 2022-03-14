@@ -13,11 +13,14 @@
     using Microsoft.Extensions.Configuration;
 
     using Workshop.Common;
+    using Workshop.Services.Data.Notes;
     using Workshop.Services.Data.Notifications;
     using Workshop.Services.Data.Roles;
     using Workshop.Services.Data.Search;
     using Workshop.Services.Data.Topics;
+    using Workshop.Services.InputDtos.Notes;
     using Workshop.Web.ViewModels.Courses;
+    using Workshop.Web.ViewModels.Notes;
     using Workshop.Web.ViewModels.Notifications;
     using Workshop.Web.ViewModels.Roles;
     using Workshop.Web.ViewModels.Search;
@@ -32,19 +35,22 @@
         private readonly IRolesService roleService;
         private readonly ISearchService searchService;
         private readonly ITopicsService topicsService;
+        private readonly INotesService notesService;
 
         public ApiController(
             IConfiguration configuration,
             INotificationsService notificationsService,
             ISearchService searchService,
             IRolesService roleService,
-            ITopicsService topicsService)
+            ITopicsService topicsService,
+            INotesService notesService)
         {
             this.configuration = configuration;
             this.notificationsService = notificationsService;
             this.roleService = roleService;
             this.searchService = searchService;
             this.topicsService = topicsService;
+            this.notesService = notesService;
         }
 
         [Route("weather")]
@@ -171,6 +177,26 @@
         public async Task ChangeNote([FromForm] int topicId, [FromForm] string noteValue)
         {
             await this.topicsService.ChangeNoteAsync(topicId, noteValue);
+        }
+
+        [Route("note/{id}")]
+        public NoteIncludingContentViewMode Note(int id)
+        {
+            return this.notesService.GetById<NoteIncludingContentViewMode>(id);
+        }
+
+        [HttpPost("note-update")]
+        [Authorize(Roles = "Learning")]
+        public async Task NoteUpdate([FromForm]NoteUpdateInputModel input)
+        {
+            var note = new NoteUpdateInputDto()
+            {
+                Id = input.Id,
+                Name = input.Name,
+                Content = input.Content,
+            };
+
+            await this.notesService.UpdateAsync(note);
         }
     }
 }

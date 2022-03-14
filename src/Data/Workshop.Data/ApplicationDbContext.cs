@@ -32,6 +32,8 @@
 
         public DbSet<Topic> Topics { get; set; }
 
+        public DbSet<Note> Notes { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
