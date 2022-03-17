@@ -38,6 +38,7 @@
                 <div class="text-center">
                     <span id="noteSaveChanges" class="btn btn-warning text-center mb-4 text-right">Save changes</span>
                     <span id="noteSaveChangesAndExit" class="btn btn-danger text-center mb-4 text-right">Save changes and exit</span>
+                    <span id="noteDownload" class="btn btn-success text-center mb-4 text-right">Download</span>
                 </div>
             </div>
         </div>
@@ -112,6 +113,13 @@
             });
         }
 
+        $("#noteDownload").click(function () {
+            filename = $("#noteName").html();
+            content = $("#NoteContent").val();
+
+            generateAndForceDownload(filename, content);
+        });
+
         function ExitModal() {
             $("#noteModal .close").click()
         }
@@ -123,6 +131,36 @@
         $("#noteSaveChangesAndExit").click(function () {
             NoteSaveChanges();
             ExitModal();
+        });
+
+        function generateAndForceDownload(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        }
+
+        $(document).keydown(function (e) {
+
+            var key = undefined;
+            var possible = [e.key, e.keyIdentifier, e.keyCode, e.which];
+
+            while (key === undefined && possible.length > 0) {
+                key = possible.pop();
+            }
+
+            if (key && (key == '115' || key == '83') && (e.ctrlKey || e.metaKey) && !(e.altKey)) {
+                e.preventDefault();
+                NoteSaveChanges();
+                return false;
+            }
+            return true;
         });
     </script>
 }
